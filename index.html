@@ -1,14 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>It's Working!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hannah Stone | Personal Website</title>
+  <style>
+    /* Modern clean styling */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: #fafafa;
+    }
+    
+    .container {
+      background-color: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+    
+    .subtitle {
+      font-size: 1.25rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    
+    p {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .link:hover {
+      color: #004499;
+    }
+    
+    .link-icon {
+      margin-right: 0.5rem;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hannah test 123</h1>
-  <p>This means your
-   is deployed!</p>
-  <a href="https://books.hannahstone.org">
-    <button>Go to Books</button>
-  </a>
+  <div class="container">
+    <h1>Hi, I'm Hannah Stone</h1>
+    <div class="subtitle">Columbia University Student</div>
+    
+    <p>
+      I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship.
+    </p>
+    
+    <div class="links">
+      <a href="https://linkedin.com/in/hannahstone1" class="link" target="_blank">
+        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 00.1.4V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      
+      <a href="mailto:hannahstonekansas@gmail.com" class="link">
+        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+        </svg>
+        Email
+      </a>
+    </div>
+  </div>
 </body>
 </html>
