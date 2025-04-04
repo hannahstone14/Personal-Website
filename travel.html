@@ -186,63 +186,57 @@
   <a href="/" class="back-link">← Back to Home</a>
   
   <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap-world-mill.min.js"></script>
-  
-  <script>
-    $(document).ready(function() {
-      // Country data with years
-      const visitedCountries = {
-        US: '2019',
-        CA: '2021',
-        FR: '2022',
-        JP: '2023',
-        BR: '2018',
-        IT: '2020',
-        CN: '2019',
-        ES: '2022',
-        // Add more countries as needed with their ISO code and year
-      };
-      
-      // Set up the map
-      $('#world-map').vectorMap({
-        map: 'world_mill',
-        backgroundColor: '#ffffff',
-        zoomOnScroll: true,
-        regionStyle: {
-          initial: {
-            fill: '#e4e4e4',
-            "fill-opacity": 1,
-            stroke: 'none',
-            "stroke-width": 0,
-            "stroke-opacity": 0
+<!-- VisitedPlaces.com code -->
+<script>
+    // VisitedPlaces.com code
+    var visitedplaces_config = {
+      "map": "world",
+      "projection": "geoNaturalEarth1",
+      "theme": "light-blue",
+      "water": 1,
+      "graticule": 0,
+      "names": 1,
+      "duration": 2000,
+      "slider": 0,
+      "autoplay": 1,
+      "autozoom": "none",
+      "data": [
+        {
+          "places": [
+            "US",
+            "GB",
+            "TR",
+            "VA",
+            "GR",
+            "IT",
+            "BS",
+            "CR",
+            "MX",
+            "KR",
+            "FR"
+          ],
+          "text": "Visited",
+          "colors": {
+            "US": "6490a9"
           },
-          hover: {
-            fill: '#8ABFF9',
-            "fill-opacity": 0.8,
-            cursor: 'pointer'
-          },
-          selected: {
-            fill: '#4B6BFB'
-          },
-        },
-        series: {
-          regions: [{
-            values: Object.fromEntries(
-              Object.keys(visitedCountries).map(code => [code, true])
-            ),
-            scale: ['#8ABFF9', '#4B6BFB'],
-            normalizeFunction: 'polynomial'
-          }]
-        },
-        onRegionTipShow: function(e, el, code) {
-          if (visitedCountries[code]) {
-            el.html(el.html() + ' - Visited in ' + visitedCountries[code]);
+          "position": {
+            "zoomLevel": 1,
+            "geoPoint": {
+              "longitude": 0,
+              "latitude": 0
+            },
+            "rotationX": 103.49935619674011,
+            "rotationY": -44.69362095469707
           }
         }
-      });
-    });
-  </script>
+      ],
+      "home": "US"
+    };
+    </script>
+    <div id="chartdiv" style="width: 1920px; height: 1080px;">
+    <script src="https://www.visitedplaces.com/js/common.js"></script>
+    <script src="https://www.visitedplaces.com/js/viewer.js"></script>
+    <!-- end: VisitedPlaces.com code -->
+    
 </body>
 </html>
