@@ -560,6 +560,7 @@
       color: white;
       font-size: 1.1rem;
       z-index: 15;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .web-node.category {
@@ -567,6 +568,7 @@
       height: 100px;
       font-size: 0.9rem;
       background-color: rgba(255, 255, 255, 0.9);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .web-node.subcategory {
@@ -619,44 +621,6 @@
     .web-link:hover {
       color: var(--primary-color);
       text-decoration: underline;
-    }
-    
-    .web-line {
-      position: absolute;
-      height: 2px;
-      background-color: rgba(115, 165, 255, 0.3);
-      transform-origin: 0 0;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity 0.5s ease, background-color 0.5s ease;
-      animation: linePulse 3s infinite alternate;
-    }
-    
-    @keyframes linePulse {
-      0% {
-        background-color: rgba(115, 165, 255, 0.3);
-        height: 2px;
-      }
-      100% {
-        background-color: rgba(115, 165, 255, 0.6);
-        height: 2.5px;
-      }
-    }
-    
-    .web-line.visible {
-      opacity: 1;
-      animation: lineAppear 0.5s forwards, linePulse 3s infinite alternate;
-    }
-    
-    @keyframes lineAppear {
-      0% {
-        opacity: 0;
-        transform: scaleX(0);
-      }
-      100% {
-        opacity: 1;
-        transform: scaleX(1);
-      }
     }
     
     .web-node-icon {
@@ -1137,13 +1101,13 @@
       const container = document.getElementById('interest-web');
       const resetButton = document.getElementById('reset-web');
       let activeNodes = [];
-      let activeLines = [];
       let currentCenterNode = null;
+      let previousState = null;
       
       // Initialize the web with the root node
       function initWeb() {
         clearWeb();
-        createNode(interestData, null);
+        createNode(interestData, null, true);
         
         // Make root node visible after a short delay
         setTimeout(() => {
@@ -1153,15 +1117,16 @@
             activeNodes.push(rootNode);
             currentCenterNode = rootNode;
           }
+          showMainCategories();
         }, 300);
       }
       
-      // Clear all nodes and lines
+      // Clear all nodes
       function clearWeb() {
         container.innerHTML = '';
         activeNodes = [];
-        activeLines = [];
         currentCenterNode = null;
+        previousState = null;
       }
       
       // Reset web to initial state
@@ -1171,97 +1136,46 @@
           node.classList.remove('visible');
         });
         
-        // Fade out all lines
-        document.querySelectorAll('.web-line.visible').forEach(line => {
-          line.classList.remove('visible');
-        });
-        
         // Re-initialize after animations complete
         setTimeout(initWeb, 500);
       }
       
-      // Calculate position for a node based on its index and parent
-      function calculatePosition(index, total, parent, level) {
+      // Calculate position for a node based on its index and total
+      function calculatePosition(index, total, isRoot = false) {
         const containerRect = container.getBoundingClientRect();
         const centerX = containerRect.width / 2;
         const centerY = containerRect.height / 2;
         
-        if (!parent) {
+        if (isRoot) {
           // Root node goes in the center
           return { x: centerX, y: centerY };
         }
         
-        const parentRect = parent.getBoundingClientRect();
-        const parentX = parentRect.left - containerRect.left + parentRect.width / 2;
-        const parentY = parentRect.top - containerRect.top + parentRect.height / 2;
-        
-        // For detail nodes, position them to the right of their parent
-        if (level === 'detail') {
-          return {
-            x: parentX + 170,
-            y: parentY
-          };
-        }
-        
-        // Calculate radius based on level
-        let radius;
-        switch(level) {
-          case 'category': radius = Math.min(containerRect.width, containerRect.height) * 0.25; break;
-          case 'subcategory': radius = Math.min(containerRect.width, containerRect.height) * 0.22; break;
-          case 'item': radius = Math.min(containerRect.width, containerRect.height) * 0.30; break;
-          default: radius = Math.min(containerRect.width, containerRect.height) * 0.25;
-        }
+        // Calculate radius based on container size
+        const radius = Math.min(containerRect.width, containerRect.height) * 0.25;
         
         // Calculate angle based on index and total
         const angleStart = -Math.PI / 2; // Start from the top
         const angleStep = (2 * Math.PI) / total;
         const angle = angleStart + (angleStep * index);
         
-        // Position nodes in a circle around their parent
-        // Add slight randomization to make it look more organic
-        const randRadius = radius * (0.95 + Math.random() * 0.1);
-        const randAngle = angle + (Math.random() * 0.1 - 0.05);
-        
-        const x = centerX + randRadius * Math.cos(randAngle);
-        const y = centerY + randRadius * Math.sin(randAngle);
+        // Position nodes in a circle around the center
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
         
         return { x, y };
       }
       
-      // Create a line connecting two nodes
-      function createLine(fromNode, toNode) {
-        const containerRect = container.getBoundingClientRect();
-        const fromRect = fromNode.getBoundingClientRect();
-        const toRect = toNode.getBoundingClientRect();
-        
-        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
-        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
-        const toX = toRect.left - containerRect.left + toRect.width / 2;
-        const toY = toRect.top - containerRect.top + toRect.height / 2;
-        
-        // Calculate distance and angle
-        const dx = toX - fromX;
-        const dy = toY - fromY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-        
-        // Create the line element
-        const line = document.createElement('div');
-        line.className = 'web-line';
-        line.style.width = `${distance}px`;
-        line.style.left = `${fromX}px`;
-        line.style.top = `${fromY}px`;
-        line.style.transform = `rotate(${angle}deg)`;
-        
-        container.appendChild(line);
-        return line;
-      }
-      
       // Create a node element
-      function createNode(data, parentNode) {
+      function createNode(data, parentNode, isRoot = false) {
         const node = document.createElement('div');
         node.className = `web-node ${data.type}`;
         node.dataset.name = data.name;
+        node.dataset.type = data.type;
+        
+        if (data.children) {
+          node.dataset.hasChildren = 'true';
+        }
         
         // Create inner content
         const nodeContent = document.createElement('div');
@@ -1320,8 +1234,6 @@
             e.stopPropagation();
             // Just hide the detail node, don't remove it
             node.classList.remove('visible');
-            const lines = document.querySelectorAll(`.web-line[data-for="${data.name}"]`);
-            lines.forEach(line => line.classList.remove('visible'));
           });
           node.appendChild(closeButton);
         }
@@ -1334,11 +1246,13 @@
           e.stopPropagation();
           
           if (data.type === 'category') {
-            // If it's a category node, move it to center and show its children
-            moveToCenter(node, data);
-          } else if (data.children) {
-            // For other nodes with children, expand to show children
-            expandNode(node, data);
+            // If it's already the center node, zoom out
+            if (currentCenterNode === node && previousState) {
+              zoomOut();
+            } else {
+              // If it's a category node, zoom in (move it to center and show its children)
+              zoomIn(node, data);
+            }
           } else if (data.detail && !node.classList.contains('detail-node')) {
             // Show detail for nodes with detail property
             showDetailNode(data, node);
@@ -1351,40 +1265,59 @@
         return node;
       }
       
-      // Move a category node to the center
-      function moveToCenter(node, data) {
+      // Display main category nodes around the root
+      function showMainCategories() {
+        const categoryData = interestData.children;
+        
+        categoryData.forEach((data, index) => {
+          let categoryNode = document.querySelector(`.web-node[data-name="${data.name}"]`);
+          
+          if (!categoryNode) {
+            categoryNode = createNode(data, null);
+            categoryNode.dataset.originalData = JSON.stringify(data);
+            
+            // Position the category node
+            const position = calculatePosition(index, categoryData.length);
+            categoryNode.style.left = `${position.x - categoryNode.offsetWidth / 2}px`;
+            categoryNode.style.top = `${position.y - categoryNode.offsetHeight / 2}px`;
+            
+            activeNodes.push(categoryNode);
+          }
+          
+          // Make the node visible with animation
+          setTimeout(() => {
+            categoryNode.classList.add('visible');
+          }, 150 + index * 100);
+        });
+      }
+      
+      // Zoom in to a category
+      function zoomIn(node, data) {
+        // Save current state for zoom out later
+        saveCurrentState();
+        
         const oldCenter = currentCenterNode;
         currentCenterNode = node;
         
-        // Get all currently visible category nodes except this one
-        const categoryNodes = Array.from(document.querySelectorAll('.web-node.category.visible')).filter(n => n !== node);
+        // Get all currently visible category nodes
+        const categoryNodes = Array.from(document.querySelectorAll('.web-node.category.visible'));
         
-        // Hide other category nodes and their children
+        // Hide all visible nodes with animation
         categoryNodes.forEach(catNode => {
-          const catName = catNode.dataset.name;
-          
-          // Find all nodes that are children of this category
-          const childNodes = activeNodes.filter(n => {
-            return n.classList.contains('subcategory') || n.classList.contains('item') || 
-                   (n.classList.contains('detail-node') && !n.classList.contains('root'));
-          });
-          
-          // Hide these nodes
-          childNodes.forEach(childNode => {
-            childNode.classList.remove('visible');
-          });
-          
-          // Hide this category node
-          catNode.classList.remove('visible');
-          
-          // Hide all lines connecting to this node and its children
-          const lines = document.querySelectorAll('.web-line.visible');
-          lines.forEach(line => {
-            line.classList.remove('visible');
-          });
+          if (catNode !== node) {
+            catNode.classList.remove('visible');
+          }
         });
         
-        // Animate this node to center
+        // Hide subcategory and detail nodes
+        document.querySelectorAll('.web-node.subcategory.visible, .web-node.detail-node.visible').forEach(node => {
+          node.classList.remove('visible');
+        });
+        
+        // Hide root node
+        document.querySelector('.web-node.root')?.classList.remove('visible');
+        
+        // Animate the selected node to center with scaling
         const containerRect = container.getBoundingClientRect();
         const centerX = containerRect.width / 2;
         const centerY = containerRect.height / 2;
@@ -1393,15 +1326,101 @@
         const newX = centerX - (node.offsetWidth / 2);
         const newY = centerY - (node.offsetHeight / 2);
         
-        // Apply the animation
-        node.style.transition = 'left 0.5s ease, top 0.5s ease';
+        // Apply the animation with a slight zoom effect
+        node.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease';
         node.style.left = `${newX}px`;
         node.style.top = `${newY}px`;
+        node.style.transform = 'scale(1.2)';
         
-        // Show its children after the transition
+        // After zoom in animation completes, show children
         setTimeout(() => {
-          expandNode(node, data);
+          // Change the node class to make it look like the root
+          node.classList.remove('category');
+          node.classList.add('root');
+          node.style.transform = 'scale(1)';
+          
+          // Show its subcategories
+          if (data.children && data.children.length) {
+            showSubcategories(data);
+          }
         }, 600);
+      }
+      
+      // Zoom out to the previous state
+      function zoomOut() {
+        if (!previousState) return;
+        
+        // Get the current center node (category that's acting as root)
+        const categoryNode = currentCenterNode;
+        
+        // Hide all subcategory and detail nodes
+        document.querySelectorAll('.web-node.subcategory.visible, .web-node.detail-node.visible').forEach(node => {
+          node.classList.remove('visible');
+        });
+        
+        // Restore the category node to its original position
+        categoryNode.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease';
+        categoryNode.style.left = previousState.categoryPosition.left;
+        categoryNode.style.top = previousState.categoryPosition.top;
+        categoryNode.style.transform = 'scale(1)';
+        
+        // Change it back to category class
+        setTimeout(() => {
+          categoryNode.classList.remove('root');
+          categoryNode.classList.add('category');
+          
+          // Show the root node again
+          document.querySelector('.web-node.root')?.classList.add('visible');
+          
+          // Show all category nodes again
+          previousState.visibleCategories.forEach(cat => {
+            const catNode = document.querySelector(`.web-node[data-name="${cat}"]`);
+            if (catNode) catNode.classList.add('visible');
+          });
+          
+          // Reset current center and previous state
+          currentCenterNode = document.querySelector('.web-node.root');
+          previousState = null;
+        }, 300);
+      }
+      
+      // Save the current state before zooming in
+      function saveCurrentState() {
+        const categoryNode = currentCenterNode === document.querySelector('.web-node.category') ? 
+            currentCenterNode : null;
+            
+        previousState = {
+          categoryPosition: {
+            left: categoryNode ? categoryNode.style.left : null,
+            top: categoryNode ? categoryNode.style.top : null
+          },
+          visibleCategories: Array.from(document.querySelectorAll('.web-node.category.visible')).map(node => node.dataset.name)
+        };
+      }
+      
+      // Show subcategories for a category
+      function showSubcategories(categoryData) {
+        if (!categoryData.children || categoryData.children.length === 0) return;
+        
+        categoryData.children.forEach((subcatData, index) => {
+          let subcatNode = document.querySelector(`.web-node[data-name="${subcatData.name}"]`);
+          
+          if (!subcatNode) {
+            subcatNode = createNode(subcatData, null);
+            
+            // Position the subcategory node
+            const position = calculatePosition(index, categoryData.children.length);
+            subcatNode.style.left = `${position.x - subcatNode.offsetWidth / 2}px`;
+            subcatNode.style.top = `${position.y - subcatNode.offsetHeight / 2}px`;
+            
+            activeNodes.push(subcatNode);
+          }
+          
+          // Make the node visible with animation
+          setTimeout(() => {
+            subcatNode.classList.add('visible');
+          }, 150 + index * 100);
+        });
       }
       
       // Show detail node for an item
@@ -1449,82 +1468,24 @@
           closeButton.addEventListener('click', function(e) {
             e.stopPropagation();
             detailNode.classList.remove('visible');
-            
-            // Hide the connecting line
-            const lines = document.querySelectorAll(`.web-line[data-for="${data.name}"]`);
-            lines.forEach(line => line.classList.remove('visible'));
           });
           detailNode.appendChild(closeButton);
           
-          // Position the detail node
-          const position = calculatePosition(0, 1, parentNode, 'detail');
-          detailNode.style.left = `${position.x - 120}px`;
-          detailNode.style.top = `${position.y - 120}px`;
+          // Position the detail node (to the right of the parent)
+          const containerRect = container.getBoundingClientRect();
+          const parentRect = parentNode.getBoundingClientRect();
+          const parentX = parentRect.left - containerRect.left + parentRect.width / 2;
+          const parentY = parentRect.top - containerRect.top + parentRect.height / 2;
+          
+          detailNode.style.left = `${parentX + 170 - 120}px`;
+          detailNode.style.top = `${parentY - 120}px`;
           
           container.appendChild(detailNode);
           activeNodes.push(detailNode);
         }
         
-        // Create connecting line if it doesn't exist
-        let line = document.querySelector(`.web-line[data-for="${data.name}"]`);
-        if (!line) {
-          line = createLine(parentNode, detailNode);
-          line.dataset.for = data.name;
-          activeLines.push(line);
-        }
-        
         // Make visible with animation
         detailNode.classList.add('visible');
-        line.classList.add('visible');
-      }
-      
-      // Expand a node to show its children
-      function expandNode(node, data) {
-        if (!data.children || data.children.length === 0) return;
-        
-        // Create child nodes if they don't exist
-        const existingChildren = document.querySelectorAll(`.web-node[data-parent="${data.name}"]`);
-        
-        if (existingChildren.length === 0) {
-          // Create new child nodes
-          const childNodes = [];
-          data.children.forEach((childData, index) => {
-            const childNode = createNode(childData, node);
-            childNode.dataset.parent = data.name;
-            
-            const position = calculatePosition(index, data.children.length, node, childData.type);
-            childNode.style.left = `${position.x - childNode.offsetWidth / 2}px`;
-            childNode.style.top = `${position.y - childNode.offsetHeight / 2}px`;
-            
-            childNodes.push(childNode);
-            activeNodes.push(childNode);
-            
-            // Create connecting line
-            const line = createLine(node, childNode);
-            line.dataset.parent = data.name;
-            activeLines.push(line);
-            
-            // Make nodes and lines visible with staggered animation
-            setTimeout(() => {
-              childNode.classList.add('visible');
-              line.classList.add('visible');
-            }, 100 + index * 120);
-          });
-        } else {
-          // Show existing child nodes
-          existingChildren.forEach((childNode, index) => {
-            if (childNode.classList.contains('visible')) return;
-            
-            // Find connecting line
-            const line = document.querySelector(`.web-line[data-parent="${data.name}"]`);
-            
-            // Make nodes and lines visible with staggered animation
-            setTimeout(() => {
-              childNode.classList.add('visible');
-              if (line) line.classList.add('visible');
-            }, 100 + index * 120);
-          });
-        }
       }
       
       // Handle window resize
