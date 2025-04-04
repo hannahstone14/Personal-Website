@@ -923,6 +923,113 @@
         font-size: 0.8rem;
       }
     }
+    
+    /* Accordion Styles */
+    .accordion-container {
+      max-width: 100%;
+      margin: 1.5rem 0;
+    }
+    
+    .accordion-item {
+      margin-bottom: 10px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .accordion-item:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .accordion-header {
+      padding: 16px 20px;
+      background-color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background-color 0.3s ease;
+    }
+    
+    .accordion-header:hover {
+      background-color: rgba(115, 165, 255, 0.05);
+    }
+    
+    .accordion-header.active {
+      background-color: rgba(115, 165, 255, 0.1);
+    }
+    
+    .accordion-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .accordion-icon {
+      font-size: 1.4rem;
+    }
+    
+    .accordion-arrow {
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .accordion-header.active .accordion-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background-color: white;
+    }
+    
+    .accordion-content.active {
+      max-height: 1000px;
+      padding: 20px;
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .accordion-section {
+      margin-bottom: 1rem;
+    }
+    
+    .accordion-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .accordion-section-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+    
+    .accordion-section-content {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    
+    .accordion-link {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-top: 0.5rem;
+      background-color: var(--light-gray);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    
+    .accordion-link:hover {
+      transform: translateY(-2px);
+      background-color: rgba(115, 165, 255, 0.15);
+    }
   </style>
 </head>
 <body>
@@ -991,14 +1098,135 @@
   
   <section id="enjoy">
     <h2>Beyond Work...</h2>
-    <div class="web-container" id="interest-web">
-      <!-- Web nodes will be dynamically generated -->
-    </div>
-    <div class="details-panel" id="details-panel">
-      <!-- Details will be inserted here dynamically -->
-    </div>
-    <div style="text-align: center;">
-      <button class="reset-button" id="reset-web">Reset Web</button>
+    <div class="accordion-container">
+      <!-- Eating -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="eating">
+          <div class="accordion-title">
+            <span class="accordion-icon">🍽️</span>
+            Eating
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div id="eating" class="accordion-content">
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Cafes</div>
+            <div class="accordion-section-content">
+              I love spending mornings at cozy cafes with great ambiance. My favorites include Blue Bottle in NYC, The Mill in San Francisco, and local spots like Daylight Coffee in Lawrence.
+            </div>
+          </div>
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Coffee Order</div>
+            <div class="accordion-section-content">
+              My go-to coffee order is an oat milk cappuccino with an extra shot. When I'm feeling adventurous, I try specialty drinks with unique flavor combinations.
+            </div>
+          </div>
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Restaurants</div>
+            <div class="accordion-section-content">
+              I'm always on the hunt for hidden culinary gems. My current top picks include Japanese izakayas, Mediterranean mezze spots, and authentic Mexican taquerias.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Being Active -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="active">
+          <div class="accordion-title">
+            <span class="accordion-icon">🏃</span>
+            Being Active
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div id="active" class="accordion-content">
+          <div class="accordion-section">
+            <div class="accordion-section-title">Most Played Course</div>
+            <div class="accordion-section-content">
+              I've played most frequently at Lawrence Country Club, but my favorite course is Pebble Beach. I enjoy the mental challenge golf provides as a perfect blend of technical skill, strategy, and outdoor appreciation.
+            </div>
+          </div>
+          <div class="accordion-section">
+            <div class="accordion-section-title">Most Skied Mountain</div>
+            <div class="accordion-section-content">
+              I've skied most often at Breckenridge, my favorite mountain in Colorado. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs. The combination of adrenaline and scenery keeps me coming back.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Film -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="film">
+          <div class="accordion-title">
+            <span class="accordion-icon">🎬</span>
+            Film
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div id="film" class="accordion-content">
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Directors</div>
+            <div class="accordion-section-content">
+              I admire the work of Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. I appreciate directors who blend technical mastery with compelling storytelling and unique visual styles.
+            </div>
+            <a href="film.html" class="accordion-link">See my film page</a>
+          </div>
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Films</div>
+            <div class="accordion-section-content">
+              Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.'
+            </div>
+            <a href="film.html" class="accordion-link">See my film page</a>
+          </div>
+          <div class="accordion-section">
+            <div class="accordion-section-title">Favorite Television Shows</div>
+            <div class="accordion-section-content">
+              My favorite shows include 'Succession', 'The Office', and 'Breaking Bad'. I appreciate series with strong character development and compelling storylines.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Reading -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="reading">
+          <div class="accordion-title">
+            <span class="accordion-icon">📚</span>
+            Reading
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div id="reading" class="accordion-content">
+          <div class="accordion-section">
+            <div class="accordion-section-title">Reading Website</div>
+            <div class="accordion-section-content">
+              I keep track of all my reading on my dedicated books website. It includes my current reads, favorites, and reading goals for the year.
+            </div>
+            <a href="https://books.hannahstone.org" class="accordion-link" target="_blank">View my reading list</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Traveling -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="traveling">
+          <div class="accordion-title">
+            <span class="accordion-icon">🌍</span>
+            Traveling
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div id="traveling" class="accordion-content">
+          <div class="accordion-section">
+            <div class="accordion-section-title">Countries I've Visited</div>
+            <div class="accordion-section-content">
+              I've been fortunate to travel to 15+ countries across Europe, Asia, and North America. Some of my favorites include Japan, Turkey, Italy, and New Zealand.
+            </div>
+            <a href="travel.html" class="accordion-link">See my travel map</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1023,590 +1251,41 @@
       document.querySelector('.scroll-indicator').style.width = scrolled + '%';
     });
     
-    // Interest Web Visualization
-    (function() {
-      // Data structure for the interest web
-      const interestData = {
-        name: "I Enjoy",
-        type: "root",
-        children: [
-          {
-            name: "Eating",
-            type: "category",
-            icon: "🍽️",
-            children: [
-              {
-                name: "Cafes",
-                type: "subcategory",
-                icon: "☕",
-                detail: {
-                  title: "Favorite Cafes",
-                  content: "I love spending mornings at cozy cafes with great ambiance. My favorites include Blue Bottle in NYC, The Mill in San Francisco, and local spots like Daylight Coffee in Lawrence.",
-                  link: null
-                }
-              },
-              {
-                name: "Coffee Order",
-                type: "subcategory",
-                icon: "☕",
-                detail: {
-                  title: "Favorite Coffee Order",
-                  content: "My go-to coffee order is an oat milk cappuccino with an extra shot. When I'm feeling adventurous, I try specialty drinks with unique flavor combinations.",
-                  link: null
-                }
-              },
-              {
-                name: "Restaurants",
-                type: "subcategory",
-                icon: "🍴",
-                detail: {
-                  title: "Favorite Restaurants",
-                  content: "I'm always on the hunt for hidden culinary gems. My current top picks include Japanese izakayas, Mediterranean mezze spots, and authentic Mexican taquerias.",
-                  link: null
-                }
-              }
-            ]
-          },
-          {
-            name: "Being Active",
-            type: "category",
-            icon: "🏃",
-            children: [
-              {
-                name: "Golf",
-                type: "subcategory",
-                icon: "🏌️‍♀️",
-                detail: {
-                  title: "Most Played Course",
-                  content: "I've played most frequently at Lawrence Country Club, but my favorite course is Pebble Beach. I enjoy the mental challenge golf provides as a perfect blend of technical skill, strategy, and outdoor appreciation.",
-                  link: null
-                }
-              },
-              {
-                name: "Skiing",
-                type: "subcategory",
-                icon: "🎿",
-                detail: {
-                  title: "Most Skied Mountain",
-                  content: "I've skied most often at Breckenridge, my favorite mountain in Colorado. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs. The combination of adrenaline and scenery keeps me coming back.",
-                  link: null
-                }
-              }
-            ]
-          },
-          {
-            name: "Film",
-            type: "category",
-            icon: "🎬",
-            children: [
-              {
-                name: "Directors",
-                type: "subcategory",
-                icon: "🎥",
-                detail: {
-                  title: "Favorite Directors",
-                  content: "I admire the work of Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. I appreciate directors who blend technical mastery with compelling storytelling and unique visual styles.",
-                  link: {
-                    text: "See my film page",
-                    url: "film.html"
-                  }
-                }
-              },
-              {
-                name: "Movies",
-                type: "subcategory",
-                icon: "🍿",
-                detail: {
-                  title: "Favorite Films",
-                  content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.'",
-                  link: {
-                    text: "See my film page",
-                    url: "film.html"
-                  }
-                }
-              },
-              {
-                name: "Television",
-                type: "subcategory",
-                icon: "📺",
-                detail: {
-                  title: "Favorite Television Shows",
-                  content: "My favorite shows include 'Succession', 'The Office', and 'Breaking Bad'. I appreciate series with strong character development and compelling storylines.",
-                  link: null
-                }
-              }
-            ]
-          },
-          {
-            name: "Reading",
-            type: "category",
-            icon: "📚",
-            children: [
-              {
-                name: "Reading List",
-                type: "subcategory",
-                icon: "📖",
-                detail: {
-                  title: "Reading Website",
-                  content: "I keep track of all my reading on my dedicated books website. It includes my current reads, favorites, and reading goals for the year.",
-                  link: {
-                    text: "View my reading list",
-                    url: "https://books.hannahstone.org"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            name: "Traveling",
-            type: "category",
-            icon: "🌍",
-            children: [
-              {
-                name: "Countries",
-                type: "subcategory",
-                icon: "🗺️",
-                detail: {
-                  title: "Countries I've Visited",
-                  content: "I've been fortunate to travel to 15+ countries across Europe, Asia, and North America. Some of my favorites include Japan, Turkey, Italy, and New Zealand.",
-                  link: {
-                    text: "See my travel map",
-                    url: "travel.html"
-                  }
-                }
-              }
-            ]
-          }
-        ]
-      };
+    // Accordion functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
       
-      // Web visualization setup
-      const container = document.getElementById('interest-web');
-      const resetButton = document.getElementById('reset-web');
-      let activeNodes = [];
-      let activeLines = [];
-      let expandedCategories = new Set();
-      let currentCenterNode = null;
-      let previousState = null;
-      
-      // Initialize the web with the root node
-      function initWeb() {
-        clearWeb();
-        createNode(interestData, null, true);
-        
-        // Make root node visible after a short delay
-        setTimeout(() => {
-          const rootNode = document.querySelector('.web-node.root');
-          if (rootNode) {
-            rootNode.classList.add('visible');
-            activeNodes.push(rootNode);
-            currentCenterNode = rootNode;
-          }
-          showMainCategories();
-        }, 300);
-      }
-      
-      // Clear all nodes
-      function clearWeb() {
-        container.innerHTML = '';
-        activeNodes = [];
-        activeLines = [];
-        expandedCategories.clear();
-        currentCenterNode = null;
-        previousState = null;
-      }
-      
-      // Reset web to initial state
-      function resetWeb() {
-        // Fade out all nodes
-        document.querySelectorAll('.web-node.visible').forEach(node => {
-          node.classList.remove('visible');
-          node.classList.remove('active');
+      // Function to close all accordion items
+      function closeAllAccordions() {
+        document.querySelectorAll('.accordion-content').forEach(content => {
+          content.classList.remove('active');
         });
         
-        // Fade out all lines
-        document.querySelectorAll('.connecting-line.visible').forEach(line => {
-          line.classList.remove('visible');
-        });
-        
-        // Hide details panel
-        const detailsPanel = document.getElementById('details-panel');
-        detailsPanel.classList.remove('visible');
-        
-        // Re-initialize after animations complete
-        setTimeout(initWeb, 500);
-      }
-      
-      // Calculate position for a node based on its index and total
-      function calculatePosition(index, total, isRoot = false) {
-        const containerRect = container.getBoundingClientRect();
-        const centerX = containerRect.width / 2;
-        const centerY = containerRect.height / 2;
-        
-        if (isRoot) {
-          // Root node goes in the center
-          return { x: centerX, y: centerY };
-        }
-        
-        // Calculate radius based on container size
-        const radius = Math.min(containerRect.width, containerRect.height) * 0.25;
-        
-        // Calculate angle based on index and total
-        const angleStart = -Math.PI / 2; // Start from the top
-        const angleStep = (2 * Math.PI) / total;
-        const angle = angleStart + (angleStep * index);
-        
-        // Position nodes in a circle around the center
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        
-        return { x, y };
-      }
-      
-      // Create a connecting line between two nodes
-      function createConnectingLine(fromNode, toNode, categoryName) {
-        const containerRect = container.getBoundingClientRect();
-        const fromRect = fromNode.getBoundingClientRect();
-        const toRect = toNode.getBoundingClientRect();
-        
-        // Calculate positions relative to container
-        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
-        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
-        const toX = toRect.left - containerRect.left + toRect.width / 2;
-        const toY = toRect.top - containerRect.top + toRect.height / 2;
-        
-        // Calculate distance and angle
-        const dx = toX - fromX;
-        const dy = toY - fromY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-        
-        // Create the line element
-        const line = document.createElement('div');
-        line.className = 'connecting-line';
-        line.style.width = `${distance}px`;
-        line.style.left = `${fromX}px`;
-        line.style.top = `${fromY}px`;
-        line.style.transform = `rotate(${angle}deg)`;
-        line.dataset.category = categoryName;
-        
-        container.appendChild(line);
-        activeLines.push(line);
-        
-        return line;
-      }
-      
-      // Display main category nodes around the root
-      function showMainCategories() {
-        const categoryData = interestData.children;
-        
-        categoryData.forEach((data, index) => {
-          let categoryNode = document.querySelector(`.web-node[data-name="${data.name}"]`);
-          
-          if (!categoryNode) {
-            categoryNode = createNode(data, null);
-            categoryNode.dataset.originalData = JSON.stringify(data);
-            
-            // Position the category node
-            const position = calculatePosition(index, categoryData.length);
-            categoryNode.style.left = `${position.x - categoryNode.offsetWidth / 2}px`;
-            categoryNode.style.top = `${position.y - categoryNode.offsetHeight / 2}px`;
-            
-            activeNodes.push(categoryNode);
-          }
-          
-          // Make the node visible with animation
-          setTimeout(() => {
-            categoryNode.classList.add('visible');
-          }, 150 + index * 100);
+        document.querySelectorAll('.accordion-header').forEach(header => {
+          header.classList.remove('active');
         });
       }
       
-      // Show subcategories for a category
-      function toggleSubcategories(categoryData, categoryNode) {
-        const categoryName = categoryData.name;
-        
-        // Check if this category is already expanded
-        if (expandedCategories.has(categoryName)) {
-          // Hide its subcategories and connecting lines
-          document.querySelectorAll(`.web-node[data-parent="${categoryName}"]`).forEach(node => {
-            node.classList.remove('visible');
-            node.classList.remove('active');
-          });
+      // Add click event to each accordion header
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const targetContent = document.getElementById(targetId);
           
-          document.querySelectorAll(`.connecting-line[data-category="${categoryName}"]`).forEach(line => {
-            line.classList.remove('visible');
-            line.classList.remove('animating');
-          });
+          // Check if this accordion is already active
+          const isActive = this.classList.contains('active');
           
-          // Hide details panel
-          const detailsPanel = document.getElementById('details-panel');
-          detailsPanel.classList.remove('visible');
+          // Close all accordions
+          closeAllAccordions();
           
-          // Remove from expanded categories
-          expandedCategories.delete(categoryName);
-          return;
-        }
-        
-        // Add to expanded categories
-        expandedCategories.add(categoryName);
-        
-        if (!categoryData.children || categoryData.children.length === 0) return;
-        
-        // Calculate expanded radius based on subcategory count
-        // More subcategories means a larger radius to prevent overlap
-        const baseRadius = Math.min(container.offsetWidth, container.offsetHeight) * 0.25;
-        const scaleFactor = Math.max(1, categoryData.children.length / 3);
-        const radius = baseRadius * scaleFactor;
-        
-        // Calculate center of the category node
-        const containerRect = container.getBoundingClientRect();
-        const categoryRect = categoryNode.getBoundingClientRect();
-        const centerX = categoryRect.left - containerRect.left + categoryRect.width / 2;
-        const centerY = categoryRect.top - containerRect.top + categoryRect.height / 2;
-        
-        // Create subcategory nodes in a semi-circle around the category node
-        categoryData.children.forEach((subcatData, index) => {
-          let subcatNode = document.querySelector(`.web-node[data-name="${subcatData.name}"]`);
-          
-          if (!subcatNode) {
-            subcatNode = createNode(subcatData, categoryNode);
-            subcatNode.dataset.parent = categoryName;
-            
-            // Calculate position in a semi-circle on the side away from the center
-            const totalItems = categoryData.children.length;
-            const angleRange = Math.PI * 0.8; // Use 144 degrees range (not full 180 to avoid straight lines)
-            
-            // Get vector from center to category
-            const vecX = centerX - containerRect.width / 2;
-            const vecY = centerY - containerRect.height / 2;
-            const vecLength = Math.sqrt(vecX * vecX + vecY * vecY);
-            
-            // Normalize and use this direction to determine the semi-circle orientation
-            const dirX = vecLength === 0 ? 0 : vecX / vecLength;
-            const dirY = vecLength === 0 ? -1 : vecY / vecLength;
-            
-            // Calculate base angle pointing away from center
-            const baseAngle = Math.atan2(dirY, dirX);
-            
-            // Calculate angle for this item, offset from the base angle
-            const angleOffset = (index / (totalItems - 1) - 0.5) * angleRange;
-            const angle = baseAngle + angleOffset;
-            
-            // Calculate position
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-            
-            subcatNode.style.left = `${x - subcatNode.offsetWidth / 2}px`;
-            subcatNode.style.top = `${y - subcatNode.offsetHeight / 2}px`;
-            
-            activeNodes.push(subcatNode);
-          }
-          
-          // Create connecting line
-          const line = createConnectingLine(categoryNode, subcatNode, categoryName);
-          
-          // Add staggered animation for nodes and lines
-          setTimeout(() => {
-            subcatNode.classList.add('visible');
-            line.classList.add('visible', 'animating');
-          }, 100 + index * 50);
-        });
-      }
-      
-      // Handle click on a category node
-      function handleCategoryClick(node, data) {
-        // Remove active state from all subcategory nodes
-        document.querySelectorAll('.web-node.subcategory.active').forEach(subNode => {
-          subNode.classList.remove('active');
-        });
-        
-        // Hide details panel when clicking on any category
-        const detailsPanel = document.getElementById('details-panel');
-        detailsPanel.classList.remove('visible');
-        
-        // Toggle subcategories
-        toggleSubcategories(data, node);
-      }
-      
-      // Show detail node for an item
-      function showDetailNode(data, parentNode) {
-        // Get the details panel
-        const detailsPanel = document.getElementById('details-panel');
-        
-        // Clear current content
-        detailsPanel.innerHTML = '';
-        
-        // Create the detail content
-        const detailTitle = document.createElement('div');
-        detailTitle.className = 'details-title';
-        detailTitle.textContent = data.detail.title;
-        
-        const detailContent = document.createElement('div');
-        detailContent.className = 'details-content';
-        detailContent.textContent = data.detail.content;
-        
-        // Add elements to the panel
-        detailsPanel.appendChild(detailTitle);
-        detailsPanel.appendChild(detailContent);
-        
-        // Add link if available
-        if (data.detail.link) {
-          const link = document.createElement('a');
-          link.className = 'details-link';
-          link.href = data.detail.link.url;
-          link.textContent = data.detail.link.text;
-          if (data.detail.link.url.startsWith('http')) {
-            link.target = '_blank';
-          }
-          detailsPanel.appendChild(link);
-        }
-        
-        // Show the panel with animation
-        detailsPanel.classList.add('visible');
-        
-        // Highlight the clicked node
-        parentNode.classList.add('active');
-      }
-      
-      // Create a node element
-      function createNode(data, parentNode, isRoot = false) {
-        const node = document.createElement('div');
-        node.className = `web-node ${data.type}`;
-        node.dataset.name = data.name;
-        node.dataset.type = data.type;
-        
-        if (data.children) {
-          node.dataset.hasChildren = 'true';
-        }
-        
-        // Create inner content
-        const nodeContent = document.createElement('div');
-        nodeContent.className = 'node-contents';
-        
-        // Add icon if available
-        if (data.icon) {
-          const iconSpan = document.createElement('span');
-          iconSpan.className = 'web-node-icon';
-          iconSpan.textContent = data.icon;
-          nodeContent.appendChild(iconSpan);
-        }
-        
-        // Add node name
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'web-node-name';
-        nameSpan.textContent = data.name;
-        nodeContent.appendChild(nameSpan);
-        
-        node.appendChild(nodeContent);
-        
-        // For detail nodes, add specific detail content
-        if (data.detail) {
-          node.classList.add('detail-node');
-          
-          const detailDiv = document.createElement('div');
-          detailDiv.className = 'detail-content-wrapper';
-          
-          const detailTitle = document.createElement('div');
-          detailTitle.className = 'detail-title';
-          detailTitle.textContent = data.detail.title;
-          detailDiv.appendChild(detailTitle);
-          
-          const detailContent = document.createElement('div');
-          detailContent.className = 'detail-content';
-          detailContent.textContent = data.detail.content;
-          detailDiv.appendChild(detailContent);
-          
-          if (data.detail.link) {
-            const link = document.createElement('a');
-            link.className = 'web-link';
-            link.href = data.detail.link.url;
-            link.textContent = data.detail.link.text;
-            if (data.detail.link.url.startsWith('http')) {
-              link.target = '_blank';
-            }
-            detailDiv.appendChild(link);
-          }
-          
-          node.appendChild(detailDiv);
-          
-          // Add close button for detail content
-          const closeButton = document.createElement('div');
-          closeButton.className = 'back-button';
-          closeButton.innerHTML = '×';
-          closeButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            // Just hide the detail node, don't remove it
-            node.classList.remove('visible');
-          });
-          node.appendChild(closeButton);
-        }
-        
-        container.appendChild(node);
-        
-        // Add click event to handle node interactions
-        node.addEventListener('click', function(e) {
-          // Prevent event propagation
-          e.stopPropagation();
-          
-          if (data.type === 'category') {
-            // Handle category click
-            handleCategoryClick(node, data);
-          } else if (data.detail && !node.classList.contains('detail-node')) {
-            // Show detail for nodes with detail property
-            showDetailNode(data, node);
-          } else if (node.classList.contains('detail-node')) {
-            // Toggle visibility of detail nodes
-            node.classList.toggle('visible');
+          // If the clicked accordion wasn't active, open it
+          if (!isActive) {
+            this.classList.add('active');
+            targetContent.classList.add('active');
           }
         });
-        
-        return node;
-      }
-      
-      // Handle scroll-based visibility
-      function handleScroll() {
-        const webSection = document.getElementById('enjoy');
-        const webContainer = document.querySelector('.web-container');
-        const rect = webSection.getBoundingClientRect();
-        
-        // Check if the section is in the viewport
-        if (rect.top < window.innerHeight && rect.bottom >= 0) {
-          webContainer.classList.add('visible');
-        } else {
-          webContainer.classList.remove('visible');
-          
-          // Optional: Also hide all nodes when scrolled away
-          document.querySelectorAll('.web-node.visible').forEach(node => {
-            node.classList.remove('visible');
-          });
-          
-          // Reset the web when we scroll back
-          if (rect.top > 0) {
-            resetWeb();
-          }
-        }
-      }
-      
-      // Handle window resize
-      let resizeTimeout;
-      window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(resetWeb, 250);
       });
-      
-      // Initialize web on load and handle scrolling
-      window.addEventListener('load', function() {
-        initWeb();
-        handleScroll(); // Initial check
-        
-        // Add scroll event listener
-        window.addEventListener('scroll', handleScroll);
-        
-        // Reset button event
-        resetButton.addEventListener('click', resetWeb);
-      });
-    })();
+    });
   </script>
 </body>
 </html>
