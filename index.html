@@ -1444,6 +1444,101 @@
         detailNode.classList.add('visible');
       }
       
+      // Create a node element
+      function createNode(data, parentNode, isRoot = false) {
+        const node = document.createElement('div');
+        node.className = `web-node ${data.type}`;
+        node.dataset.name = data.name;
+        node.dataset.type = data.type;
+        
+        if (data.children) {
+          node.dataset.hasChildren = 'true';
+        }
+        
+        // Create inner content
+        const nodeContent = document.createElement('div');
+        nodeContent.className = 'node-contents';
+        
+        // Add icon if available
+        if (data.icon) {
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'web-node-icon';
+          iconSpan.textContent = data.icon;
+          nodeContent.appendChild(iconSpan);
+        }
+        
+        // Add node name
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'web-node-name';
+        nameSpan.textContent = data.name;
+        nodeContent.appendChild(nameSpan);
+        
+        node.appendChild(nodeContent);
+        
+        // For detail nodes, add specific detail content
+        if (data.detail) {
+          node.classList.add('detail-node');
+          
+          const detailDiv = document.createElement('div');
+          detailDiv.className = 'detail-content-wrapper';
+          
+          const detailTitle = document.createElement('div');
+          detailTitle.className = 'detail-title';
+          detailTitle.textContent = data.detail.title;
+          detailDiv.appendChild(detailTitle);
+          
+          const detailContent = document.createElement('div');
+          detailContent.className = 'detail-content';
+          detailContent.textContent = data.detail.content;
+          detailDiv.appendChild(detailContent);
+          
+          if (data.detail.link) {
+            const link = document.createElement('a');
+            link.className = 'web-link';
+            link.href = data.detail.link.url;
+            link.textContent = data.detail.link.text;
+            if (data.detail.link.url.startsWith('http')) {
+              link.target = '_blank';
+            }
+            detailDiv.appendChild(link);
+          }
+          
+          node.appendChild(detailDiv);
+          
+          // Add close button for detail content
+          const closeButton = document.createElement('div');
+          closeButton.className = 'back-button';
+          closeButton.innerHTML = '×';
+          closeButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Just hide the detail node, don't remove it
+            node.classList.remove('visible');
+          });
+          node.appendChild(closeButton);
+        }
+        
+        container.appendChild(node);
+        
+        // Add click event to handle node interactions
+        node.addEventListener('click', function(e) {
+          // Prevent event propagation
+          e.stopPropagation();
+          
+          if (data.type === 'category') {
+            // Handle category click
+            handleCategoryClick(node, data);
+          } else if (data.detail && !node.classList.contains('detail-node')) {
+            // Show detail for nodes with detail property
+            showDetailNode(data, node);
+          } else if (node.classList.contains('detail-node')) {
+            // Toggle visibility of detail nodes
+            node.classList.toggle('visible');
+          }
+        });
+        
+        return node;
+      }
+      
       // Handle scroll-based visibility
       function handleScroll() {
         const webSection = document.getElementById('enjoy');
