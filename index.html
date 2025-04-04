@@ -3,94 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hannah Stone | Personal Website</title>
+  <title>Hannah Stone | Columbia University</title>
   <style>
-    /* Modern clean styling */
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      background-color: #fafafa;
+    :root {
+      --primary-color: #4B6BFB;
+      --secondary-color: #FF8271;
+      --text-color: #333;
+      --light-gray: #f6f6f6;
+      --medium-gray: #ddd;
     }
     
-    .container {
-      background-color: white;
-      padding: 3rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .profile-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .profile-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .profile-content {
+      flex-grow: 1;
     }
     
     h1 {
       font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #222;
-    }
-    
-    .subtitle {
-      font-size: 1.25rem;
-      color: #555;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
     }
     
     p {
-      font-size: 1.125rem;
+      font-size: 1.1rem;
       margin-bottom: 1.5rem;
+      max-width: 600px;
     }
     
-    .links {
+    .social-links {
       display: flex;
       gap: 1rem;
-      margin-top: 2rem;
     }
     
-    .link {
+    .icon-link {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #333;
+      color: white;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    
+    .icon-link:hover {
+      transform: translateY(-3px);
+      background-color: var(--primary-color);
+    }
+    
+    section {
+      margin-bottom: 3rem;
+    }
+    
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    ul {
+      list-style-type: none;
+    }
+    
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    
+    li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
       text-decoration: none;
-      color: #0066cc;
+      border-radius: 30px;
       font-weight: 500;
-      transition: color 0.2s;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     
-    .link:hover {
-      color: #004499;
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
-    .link-icon {
+    .button-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .button-secondary {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    .button-icon {
       margin-right: 0.5rem;
       width: 20px;
       height: 20px;
     }
+    
+    @media (max-width: 768px) {
+      .profile-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+      
+      h2 {
+        display: block;
+        text-align: center;
+      }
+      
+      .button-container {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hi, I'm Hannah Stone</h1>
-    <div class="subtitle">Columbia University Student</div>
-    
-    <p>
-      I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship.
-    </p>
-    
-    <div class="links">
-      <a href="https://linkedin.com/in/hannahstone1" class="link" target="_blank">
-        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 00.1.4V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-        </svg>
-        LinkedIn
-      </a>
-      
-      <a href="mailto:hannahstonekansas@gmail.com" class="link">
-        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-        </svg>
-        Email
-      </a>
+  <div class="profile-container">
+    <div class="profile-photo">
+      Photo
+    </div>
+    <div class="profile-content">
+      <h1>Hi, I'm Hannah Stone</h1>
+      <p>
+        I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship. I'm originally from Lawrence, Kansas.
+      </p>
+      <div class="social-links">
+        <a href="https://linkedin.com/in/hannahstone1" class="icon-link" target="_blank" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+        <a href="mailto:hannahstonekansas@gmail.com" class="icon-link" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
+  
+  <section>
+    <h2>Things I've Done...</h2>
+    <ul>
+      <li>Served as Key Club Governor, elected as 1 of 33 Governors across 50 states and 45+ countries on a council to lead 200,000+ volunteers</li>
+      <li>Spoke in front of a crowd of 65,000 + broadcast to millions</li>
+      <li>Represented 10,000+ students in Board of Education budget cut meetings</li>
+      <li>Designed for a $2.29MM grant sponsored by the U.S. Department of Education</li>
+    </ul>
+  </section>
+  
+  <section>
+    <h2>Places I've Worked...</h2>
+    <ul>
+      <li>Development Intern at Women's World Banking</li>
+      <li>Consultant for Junzi Kitchen and Dinosaur Bar-B-Que</li>
+      <li>Data Specialist at AlixPartners</li>
+    </ul>
+  </section>
+  
+  <section>
+    <h2>I Enjoy:</h2>
+    <ul>
+      <li>Film (from Romcoms to Hitchcock)</li>
+      <li>Golf</li>
+      <li>Skiing</li>
+      <li>Trying new restaurants</li>
+    </ul>
+    
+    <div class="button-container">
+      <a href="/books" class="button button-primary">
+        <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 4v13.8c0 2.7-2.5 2.7-2.5 2.7h-13c-2.5 0-2.5-2-2.5-2v-14.5"/>
+          <path d="M16 8.2V2H4v15.8c0 .6.3 1.2 1 1.2h16"/>
+          <path d="M6 16h14"/>
+          <path d="M6 20h14"/>
+          <path d="M16 2c5 0 5 6.2 5 6.2H16V2z"/>
+        </svg>
+        Reading
+      </a>
+      <a href="/travel" class="button button-secondary">
+        <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 11.5c0 2.485-2.015 4.5-4.5 4.5s-4.5-2.015-4.5-4.5 2.015-4.5 4.5-4.5 4.5 2.015 4.5 4.5zm-3 0l1.5-3h-3l-1.5 3 1.5 3h3l-1.5-3zm-4.5 7.5h-12v-15h12v3.5c.612-.218 1.288-.344 1.995-.344l.005-.001v-5.155h-16v19h16v-5.155c-.712.001-1.389-.125-2-.345v3.5z"/>
+        </svg>
+        Traveling
+      </a>
+    </div>
+  </section>
 </body>
 </html>
