@@ -13,6 +13,7 @@
     :root {
       --primary-color: #4B6BFB;
       --secondary-color: #FF8271;
+      --accent-color: #73A5FF;
       --text-color: #333;
       --light-gray: #f6f6f6;
       --medium-gray: #ddd;
@@ -22,6 +23,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     
     body {
@@ -42,6 +44,7 @@
       padding: 0.75rem 0 1.5rem;
       border-bottom: 1px solid var(--light-gray);
       margin-bottom: 2.5rem;
+      position: relative;
     }
     
     .logo {
@@ -63,7 +66,25 @@
     }
     
     .nav-link:hover {
-      color: var(--primary-color);
+      color: var(--accent-color);
+    }
+    
+    /* Hamburger menu for mobile */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .menu-toggle span {
+      height: 2px;
+      width: 100%;
+      background-color: var(--text-color);
+      border-radius: 2px;
+      transition: all 0.3s ease;
     }
     
     .profile-container {
@@ -71,6 +92,9 @@
       align-items: flex-start;
       gap: 2.5rem;
       margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s ease forwards;
     }
     
     .profile-photo {
@@ -80,6 +104,7 @@
       object-fit: cover;
       overflow: hidden;
       flex-shrink: 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
     .profile-photo img {
@@ -101,7 +126,8 @@
     p {
       font-size: 1rem; /* Smaller paragraph text */
       margin-bottom: 1.25rem;
-      max-width: 600px;
+      max-width: 550px; /* Reduced width for better readability */
+      line-height: 1.6;
     }
     
     .social-links {
@@ -116,18 +142,43 @@
       width: 34px; /* Smaller icons (was 38px) */
       height: 34px; /* Smaller icons (was 38px) */
       border-radius: 50%;
-      background-color: #333;
+      background-color: var(--accent-color);
       color: white;
       transition: transform 0.2s, background-color 0.2s;
+      box-shadow: 0 2px 5px rgba(115, 165, 255, 0.3);
     }
     
     .icon-link:hover {
       transform: translateY(-3px);
       background-color: var(--primary-color);
+      box-shadow: 0 5px 10px rgba(75, 107, 251, 0.4);
     }
     
     section {
       margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s ease forwards;
+      animation-delay: calc(var(--section-index) * 0.2s);
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    #things {
+      --section-index: 1;
+    }
+    
+    #places {
+      --section-index: 2;
+    }
+    
+    #enjoy {
+      --section-index: 3;
     }
     
     h2 {
@@ -145,7 +196,7 @@
       left: 0;
       width: 100%;
       height: 2px; /* Thinner underline */
-      background-color: var(--primary-color);
+      background-color: var(--accent-color);
       border-radius: 2px;
     }
     
@@ -164,7 +215,7 @@
       content: '•';
       position: absolute;
       left: 0;
-      color: var(--primary-color);
+      color: var(--accent-color);
       font-weight: bold;
     }
     
@@ -212,9 +263,92 @@
     
     /* Highlighted company names */
     .company-highlight {
-      background-color: rgba(75, 107, 251, 0.15);
+      background-color: rgba(115, 165, 255, 0.15);
       padding: 0 3px;
       border-radius: 3px;
+    }
+    
+    /* Enjoyment pills */
+    .enjoyment-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 15px;
+      background-color: var(--light-gray);
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-color);
+      transition: all 0.2s ease;
+      cursor: default;
+      position: relative;
+    }
+    
+    .pill:hover {
+      background-color: rgba(115, 165, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .pill-icon {
+      margin-right: 6px;
+      font-size: 1.1rem;
+    }
+    
+    .pill-link {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .pill-tooltip {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      z-index: 100;
+    }
+    
+    .pill-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px 5px 0;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.8) transparent transparent;
+    }
+    
+    .pill:hover .pill-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1);
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background-color: var(--accent-color);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease;
     }
     
     @media (max-width: 768px) {
@@ -223,6 +357,11 @@
         align-items: center;
         text-align: center;
         gap: 1.5rem;
+      }
+      
+      .profile-photo {
+        width: 140px;
+        height: 140px;
       }
       
       .social-links {
@@ -239,20 +378,60 @@
         gap: 1rem;
       }
       
+      .menu-toggle {
+        display: flex;
+        position: absolute;
+        top: 0.75rem;
+        right: 0;
+      }
+      
       .nav-menu {
-        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        gap: 0.5rem;
+        opacity: 0;
+      }
+      
+      .nav-menu.active {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 1rem;
+      }
+      
+      .nav-link {
+        padding: 0.5rem 0;
+        display: block;
+        text-align: center;
+      }
+      
+      p {
+        max-width: 100%;
+      }
+      
+      .enjoyment-pills {
         justify-content: center;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator"></div>
+
   <!-- Simple header with logo and navigation -->
   <header class="header">
     <a href="/">
       <img src="images/hannahstone-logo.png" alt="Hannah Stone" class="logo">
     </a>
-    <nav class="nav-menu">
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-menu" id="nav-menu">
       <a href="#things" class="nav-link">Things I've Done</a>
       <a href="#places" class="nav-link">Places I've Worked</a>
       <a href="#enjoy" class="nav-link">I Enjoy</a>
@@ -304,14 +483,69 @@
   
   <section id="enjoy">
     <h2>I Enjoy...</h2>
-    <ul>
-      <li><a href="https://books.hannahstone.org" class="enhanced-link" target="_blank">📚 Reading</a></li>
-      <li><a href="film.html" class="enhanced-link">🎬 Film</a></li>
-      <li>✈️ Traveling</li>
-      <li>🏌️‍♀️ Golf</li>
-      <li>🎿 Skiing</li>
-      <li>🍴 Trying new restaurants</li>
-    </ul>
+    <div class="enjoyment-pills">
+      <a href="https://books.hannahstone.org" class="pill-link" target="_blank">
+        <div class="pill">
+          <span class="pill-icon">📚</span>
+          <span>Reading</span>
+          <span class="pill-tooltip">Explore my reading list</span>
+        </div>
+      </a>
+      
+      <a href="film.html" class="pill-link">
+        <div class="pill">
+          <span class="pill-icon">🎬</span>
+          <span>Film</span>
+          <span class="pill-tooltip">See my favorite movies</span>
+        </div>
+      </a>
+      
+      <div class="pill">
+        <span class="pill-icon">✈️</span>
+        <span>Traveling</span>
+        <span class="pill-tooltip">I've visited 15+ countries</span>
+      </div>
+      
+      <div class="pill">
+        <span class="pill-icon">🏌️‍♀️</span>
+        <span>Golf</span>
+        <span class="pill-tooltip">14 handicap</span>
+      </div>
+      
+      <div class="pill">
+        <span class="pill-icon">🎿</span>
+        <span>Skiing</span>
+        <span class="pill-tooltip">Favorite spots: Breckenridge, Park City</span>
+      </div>
+      
+      <div class="pill">
+        <span class="pill-icon">🍴</span>
+        <span>Trying new restaurants</span>
+        <span class="pill-tooltip">I keep a food journal</span>
+      </div>
+    </div>
   </section>
+
+  <script>
+    // Hamburger menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link (mobile)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('nav-menu').classList.remove('active');
+      });
+    });
+    
+    // Scroll indicator
+    window.addEventListener('scroll', function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.querySelector('.scroll-indicator').style.width = scrolled + '%';
+    });
+  </script>
 </body>
 </html>
