@@ -1,1 +1,337 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Stats | Hannah Stone</title>
+  
+  <!-- Same favicon as your main page -->
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <style>
+    :root {
+      --primary-color: #4B6BFB;
+      --secondary-color: #FF8271;
+      --accent-color: #00A170;
+      --text-color: #333;
+      --light-gray: #f6f6f6;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem 2rem 4rem;
+      font-size: 15px;
+    }
+    
+    /* Header styles matching your main page */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0 1.5rem;
+      border-bottom: 1px solid var(--light-gray);
+      margin-bottom: 2.5rem;
+    }
+    
+    .logo {
+      height: 32px;
+      width: auto;
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+    
+    h1 {
+      font-size: 2.1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #666;
+    }
+    
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .stat-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Top films section */
+    .section-title {
+      font-size: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .top-films {
+      margin-bottom: 3rem;
+    }
+    
+    .films-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .film-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+    
+    .film-card:hover {
+      transform: scale(1.03);
+    }
+    
+    .film-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+    
+    .film-title {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    
+    /* Directors section */
+    .directors-list {
+      list-style: none;
+    }
+    
+    .director-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .director-name {
+      font-weight: 500;
+    }
+    
+    .director-count {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    /* Last updated text */
+    .update-info {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    
+    /* Back link */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .back-link:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .films-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with logo and navigation -->
+  <header class="header">
+    <a href="/">
+      <img src="images/hannahstone-logo.png" alt="Hannah Stone" class="logo">
+    </a>
+    <nav class="nav-menu">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/#things" class="nav-link">Things I've Done</a>
+      <a href="/#places" class="nav-link">Places I've Worked</a>
+      <a href="/#enjoy" class="nav-link">I Enjoy</a>
+    </nav>
+  </header>
+
+  <h1>My Film Journey</h1>
+  <p class="page-subtitle">Tracking my cinematic adventures through the years</p>
+  
+  <!-- Main stats grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">1,886</div>
+      <div class="stat-label">Films Watched</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">2,980</div>
+      <div class="stat-label">Hours</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">1,376</div>
+      <div class="stat-label">Directors</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">40</div>
+      <div class="stat-label">Countries</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">26w</div>
+      <div class="stat-label">Longest Streak</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">180</div>
+      <div class="stat-label">2+ Film Days</div>
+    </div>
+  </div>
+  
+  <!-- Top films section -->
+  <div class="top-films">
+    <h2 class="section-title">My Top Films</h2>
+    <div class="films-list">
+      <div class="film-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BZjc4NDZhZWMtNGEzYS00ZWU2LThlM2ItNTA0YzQ0OTExMWY5XkEyXkFqcGdeQXVyNjUwMzI2NzU@._V1_.jpg" alt="It's a Wonderful Life" class="film-poster">
+        <div class="film-title">It's a Wonderful Life</div>
+      </div>
+      
+      <div class="film-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" alt="The Lord of the Rings: The Two Towers" class="film-poster">
+        <div class="film-title">The Lord of the Rings: The Two Towers</div>
+      </div>
+      
+      <div class="film-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTYwMzMxODk5MV5BMl5BanBnXkFtZTgwMzUwMzYxMTE@._V1_.jpg" alt="The Shop Around the Corner" class="film-poster">
+        <div class="film-title">The Shop Around the Corner</div>
+      </div>
+      
+      <div class="film-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BZTcyNjk1MjgtOWI3Mi00YzQwLWI5MTktMzY4ZmI2NDAyNzYzXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" alt="Memento" class="film-poster">
+        <div class="film-title">Memento</div>
+      </div>
+      
+      <div class="film-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTMyNjk4Njc3NV5BMl5BanBnXkFtZTcwMjk5NDc0MQ@@._V1_.jpg" alt="The Devil Wears Prada" class="film-poster">
+        <div class="film-title">The Devil Wears Prada</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Top directors section -->
+  <h2 class="section-title">Most Watched Directors</h2>
+  <ul class="directors-list">
+    <li class="director-item">
+      <span class="director-name">Steven Spielberg</span>
+      <span class="director-count">12 films</span>
+    </li>
+    <li class="director-item">
+      <span class="director-name">Christopher Nolan</span>
+      <span class="director-count">10 films</span>
+    </li>
+    <li class="director-item">
+      <span class="director-name">Alfred Hitchcock</span>
+      <span class="director-count">8 films</span>
+    </li>
+  </ul>
+  
+  <p class="update-info">Last updated: <span id="update-date">May 5, 2024</span></p>
+  <a href="/" class="back-link">← Back to Home</a>
+
+  <script>
+    // Display the current date as the update date
+    document.getElementById('update-date').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  </script>
+</body>
+</html>
