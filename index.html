@@ -474,6 +474,184 @@
       transition: width 0.1s ease;
     }
     
+    /* New web diagram styles */
+    .web-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      margin: 2rem auto;
+      overflow: hidden;
+    }
+    
+    .web-node {
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      overflow: hidden;
+      background-color: white;
+      border: 2px solid var(--accent-color);
+      opacity: 0;
+      transform: scale(0);
+      color: var(--text-color);
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .web-node.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .web-node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+    }
+    
+    .web-node.root {
+      width: 120px;
+      height: 120px;
+      top: 50%;
+      left: 50%;
+      margin-top: -60px;
+      margin-left: -60px;
+      background-color: var(--accent-color);
+      color: white;
+      font-size: 1.1rem;
+      z-index: 15;
+    }
+    
+    .web-node.category {
+      width: 100px;
+      height: 100px;
+      font-size: 0.9rem;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .web-node.subcategory {
+      width: 90px;
+      height: 90px;
+      font-size: 0.8rem;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .web-node.item {
+      width: 80px;
+      height: 80px;
+      font-size: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .web-node.detail {
+      width: 240px;
+      height: 240px;
+      border-radius: 10px;
+      display: block;
+      padding: 15px;
+      overflow-y: auto;
+      text-align: left;
+      font-weight: normal;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    
+    .detail-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+    }
+    
+    .detail-content {
+      margin-bottom: 8px;
+    }
+    
+    .web-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .web-link:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+    
+    .web-line {
+      position: absolute;
+      height: 2px;
+      background-color: rgba(115, 165, 255, 0.3);
+      transform-origin: 0 0;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .web-line.visible {
+      opacity: 1;
+    }
+    
+    .web-node-icon {
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+    }
+    
+    .node-contents {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+    
+    .back-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--light-gray);
+      cursor: pointer;
+      transition: background-color 0.2s;
+      z-index: 5;
+    }
+    
+    .back-button:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .reset-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 8px 16px;
+      background-color: var(--light-gray);
+      border: none;
+      border-radius: 20px;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .reset-button:hover {
+      background-color: rgba(115, 165, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
     @media (max-width: 768px) {
       .profile-container {
         flex-direction: column;
@@ -545,6 +723,42 @@
       .card-title {
         margin-top: 40px;
       }
+      
+      .web-container {
+        height: 500px;
+      }
+      
+      .web-node.root {
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+        font-size: 1rem;
+      }
+      
+      .web-node.category {
+        width: 80px;
+        height: 80px;
+        font-size: 0.8rem;
+      }
+      
+      .web-node.subcategory {
+        width: 70px;
+        height: 70px;
+        font-size: 0.7rem;
+      }
+      
+      .web-node.item {
+        width: 65px;
+        height: 65px;
+        font-size: 0.65rem;
+      }
+      
+      .web-node.detail {
+        width: 200px;
+        height: 200px;
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -614,86 +828,11 @@
   
   <section id="enjoy">
     <h2>I Enjoy...</h2>
-    <div class="interests-grid">
-      <!-- Reading Card -->
-      <div class="interest-card" data-category="BOOKS">
-        <div class="card-category">Books</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Reading</h3>
-          <p class="card-description">
-            I love diving into books that expand my horizons. My reading habits span from business strategy and economics to literary fiction and philosophy. I maintain a detailed reading list where I track and review everything I read.
-          </p>
-          <a href="https://books.hannahstone.org" class="card-link" target="_blank">View My Reading List</a>
-        </div>
-      </div>
-      
-      <!-- Film Card -->
-      <div class="interest-card" data-category="FILM">
-        <div class="card-category">Film</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Film</h3>
-          <p class="card-description">
-            Cinema is one of my greatest passions. I particularly enjoy works by directors like Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. Some of my favorites include "It's a Wonderful Life," "The Lord of the Rings," and "Memento."
-          </p>
-          <a href="film.html" class="card-link">Explore My Film Tastes</a>
-        </div>
-      </div>
-      
-      <!-- Travel Card -->
-      <div class="interest-card" data-category="TRAVEL">
-        <div class="card-category">Travel</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Traveling</h3>
-          <p class="card-description">
-            I've visited over 15 countries across multiple continents. Each trip teaches me something new about culture, history, and myself. I enjoy both urban exploration and wilderness adventures, from bustling Tokyo streets to the serene Norwegian fjords.
-          </p>
-        </div>
-      </div>
-      
-      <!-- Golf Card -->
-      <div class="interest-card" data-category="SPORTS">
-        <div class="card-category">Sports</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Golf</h3>
-          <p class="card-description">
-            Golf challenges me both mentally and physically. I currently play at a 14 handicap and enjoy the combination of technical skill, strategy, and outdoor appreciation the sport offers. It's also a great way to connect with people in a relaxed setting.
-          </p>
-        </div>
-      </div>
-      
-      <!-- Skiing Card -->
-      <div class="interest-card" data-category="SPORTS">
-        <div class="card-category">Sports</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Skiing</h3>
-          <p class="card-description">
-            There's nothing like the freedom of gliding down a mountain. My favorite skiing destinations include Breckenridge and Park City, but I'm always looking to explore new slopes. I'm comfortable on black diamond runs and enjoy both groomed trails and powder days.
-          </p>
-        </div>
-      </div>
-      
-      <!-- Food Card -->
-      <div class="interest-card" data-category="FOOD">
-        <div class="card-category">Food</div>
-        <div class="card-overlay"></div>
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1000');"></div>
-        <div class="card-content">
-          <h3 class="card-title">Trying new restaurants</h3>
-          <p class="card-description">
-            I'm always on the hunt for unique culinary experiences. I keep a food journal documenting my favorite dishes and restaurants from around the world. I especially enjoy exploring authentic local cuisines and finding hidden gems off the beaten path.
-          </p>
-        </div>
-      </div>
+    <div class="web-container" id="interest-web">
+      <!-- Web nodes will be dynamically generated -->
+    </div>
+    <div style="text-align: center;">
+      <button class="reset-button" id="reset-web">Reset Web</button>
     </div>
   </section>
 
@@ -718,33 +857,584 @@
       document.querySelector('.scroll-indicator').style.width = scrolled + '%';
     });
     
-    // Expandable interest cards
-    document.querySelectorAll('.interest-card').forEach(card => {
-      card.addEventListener('click', function() {
-        // If already expanded, collapse it
-        if (this.classList.contains('expanded')) {
-          this.classList.remove('expanded');
-          return;
-        }
+    // Interest Web Visualization
+    (function() {
+      // Data structure for the interest web
+      const interestData = {
+        name: "I Enjoy",
+        type: "root",
+        children: [
+          {
+            name: "Media",
+            type: "category",
+            icon: "📺",
+            children: [
+              {
+                name: "Books",
+                type: "subcategory",
+                icon: "📚",
+                children: [
+                  {
+                    name: "Fiction",
+                    type: "item",
+                    icon: "📕",
+                    detail: {
+                      title: "Fiction Books",
+                      content: "I love literary fiction that challenges perspectives and introduces new worlds. Some of my favorite authors include Kazuo Ishiguro, Donna Tartt, and Gabriel García Márquez.",
+                      link: {
+                        text: "View my reading list",
+                        url: "https://books.hannahstone.org"
+                      }
+                    }
+                  },
+                  {
+                    name: "Non-Fiction",
+                    type: "item",
+                    icon: "📗",
+                    detail: {
+                      title: "Non-Fiction Books",
+                      content: "I read a lot of business strategy, economics, and psychology books to expand my knowledge. Recently I've been exploring works on behavioral economics and decision-making.",
+                      link: {
+                        text: "View my reading list",
+                        url: "https://books.hannahstone.org"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                name: "Film",
+                type: "subcategory",
+                icon: "🎬",
+                children: [
+                  {
+                    name: "Directors",
+                    type: "item",
+                    icon: "🎥",
+                    detail: {
+                      title: "Favorite Directors",
+                      content: "I admire the work of Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. I appreciate directors who blend technical mastery with compelling storytelling.",
+                      link: {
+                        text: "See my film page",
+                        url: "film.html"
+                      }
+                    }
+                  },
+                  {
+                    name: "Movies",
+                    type: "item",
+                    icon: "🍿",
+                    detail: {
+                      title: "Favorite Films",
+                      content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.'",
+                      link: {
+                        text: "See my film page",
+                        url: "film.html"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                name: "TV Shows",
+                type: "subcategory",
+                icon: "📺",
+                detail: {
+                  title: "Television",
+                  content: "I enjoy watching well-crafted series with complex characters and compelling narratives. Favorites include Succession, The White Lotus, Arrested Development, and The Bear.",
+                  link: null
+                }
+              }
+            ]
+          },
+          {
+            name: "Travel",
+            type: "category",
+            icon: "✈️",
+            children: [
+              {
+                name: "Cities",
+                type: "subcategory",
+                icon: "🏙️",
+                detail: {
+                  title: "Urban Exploration",
+                  content: "I love exploring cities and their unique cultures, architecture, and cuisines. Tokyo, Barcelona, and Istanbul are among my favorite urban destinations.",
+                  link: null
+                }
+              },
+              {
+                name: "Nature",
+                type: "subcategory",
+                icon: "🏞️",
+                detail: {
+                  title: "Nature Destinations",
+                  content: "From Norwegian fjords to New Zealand landscapes, I'm drawn to breathtaking natural settings. Hiking and photography are my favorite activities in these locations.",
+                  link: null
+                }
+              }
+            ]
+          },
+          {
+            name: "Sports",
+            type: "category",
+            icon: "🏆",
+            children: [
+              {
+                name: "Golf",
+                type: "subcategory",
+                icon: "🏌️‍♀️",
+                detail: {
+                  title: "Golf",
+                  content: "I currently play at a 14 handicap and enjoy the mental challenge golf provides. It's a perfect blend of technical skill, strategy, and outdoor appreciation.",
+                  link: null
+                }
+              },
+              {
+                name: "Skiing",
+                type: "subcategory",
+                icon: "🎿",
+                detail: {
+                  title: "Skiing",
+                  content: "My favorite skiing destinations include Breckenridge and Park City. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs.",
+                  link: null
+                }
+              }
+            ]
+          },
+          {
+            name: "Food",
+            type: "category",
+            icon: "🍴",
+            children: [
+              {
+                name: "Restaurants",
+                type: "subcategory",
+                icon: "🍽️",
+                detail: {
+                  title: "Restaurant Exploration",
+                  content: "I maintain a food journal documenting favorite dishes and restaurants from around the world. I especially enjoy finding hidden local gems when traveling.",
+                  link: null
+                }
+              },
+              {
+                name: "Cuisines",
+                type: "subcategory",
+                icon: "🌮",
+                detail: {
+                  title: "Global Cuisines",
+                  content: "Japanese, Mediterranean, and Mexican are among my favorite cuisines. I appreciate dishes that balance complexity, tradition, and innovation.",
+                  link: null
+                }
+              }
+            ]
+          }
+        ]
+      };
+      
+      // Web visualization setup
+      const container = document.getElementById('interest-web');
+      const resetButton = document.getElementById('reset-web');
+      let activeNodes = [];
+      let activeLines = [];
+      
+      // Initialize the web with the root node
+      function initWeb() {
+        clearWeb();
+        createNode(interestData, null);
         
-        // Collapse any expanded cards first
-        document.querySelectorAll('.interest-card.expanded').forEach(expandedCard => {
-          expandedCard.classList.remove('expanded');
+        // Make root node visible after a short delay
+        setTimeout(() => {
+          const rootNode = document.querySelector('.web-node.root');
+          if (rootNode) {
+            rootNode.classList.add('visible');
+            activeNodes.push(rootNode);
+          }
+        }, 300);
+      }
+      
+      // Clear all nodes and lines
+      function clearWeb() {
+        container.innerHTML = '';
+        activeNodes = [];
+        activeLines = [];
+      }
+      
+      // Reset web to initial state
+      function resetWeb() {
+        // Fade out all nodes
+        document.querySelectorAll('.web-node.visible').forEach(node => {
+          node.classList.remove('visible');
         });
         
-        // Expand this card
-        this.classList.add('expanded');
+        // Fade out all lines
+        document.querySelectorAll('.web-line.visible').forEach(line => {
+          line.classList.remove('visible');
+        });
         
-        // Scroll to the card if it's not fully visible
-        const rect = this.getBoundingClientRect();
-        if (rect.bottom > window.innerHeight) {
-          window.scrollTo({
-            top: window.scrollY + rect.top - 100,
-            behavior: 'smooth'
-          });
+        // Re-initialize after animations complete
+        setTimeout(initWeb, 500);
+      }
+      
+      // Calculate position for a node based on its index and parent
+      function calculatePosition(index, total, parent, level) {
+        const containerRect = container.getBoundingClientRect();
+        const centerX = containerRect.width / 2;
+        const centerY = containerRect.height / 2;
+        
+        if (!parent) {
+          // Root node goes in the center
+          return { x: centerX, y: centerY };
         }
+        
+        const parentRect = parent.getBoundingClientRect();
+        const parentX = parentRect.left - containerRect.left + parentRect.width / 2;
+        const parentY = parentRect.top - containerRect.top + parentRect.height / 2;
+        
+        // For detail nodes, position them close to their parent
+        if (level === 'detail') {
+          return {
+            x: parentX + 50,
+            y: parentY - 50
+          };
+        }
+        
+        // Calculate radius based on level
+        let radius;
+        switch(level) {
+          case 'category': radius = Math.min(containerRect.width, containerRect.height) * 0.25; break;
+          case 'subcategory': radius = Math.min(containerRect.width, containerRect.height) * 0.35; break;
+          case 'item': radius = Math.min(containerRect.width, containerRect.height) * 0.42; break;
+          default: radius = Math.min(containerRect.width, containerRect.height) * 0.3;
+        }
+        
+        // Calculate angle based on index and total
+        const angleStep = (2 * Math.PI) / total;
+        const angle = angleStep * index;
+        
+        // Position nodes in a circle around their parent
+        // Add some randomization to make it look more organic
+        const randRadius = radius * (0.9 + Math.random() * 0.2);
+        const randAngle = angle + (Math.random() * 0.2 - 0.1);
+        
+        const x = centerX + randRadius * Math.cos(randAngle);
+        const y = centerY + randRadius * Math.sin(randAngle);
+        
+        return { x, y };
+      }
+      
+      // Create a line connecting two nodes
+      function createLine(fromNode, toNode) {
+        const containerRect = container.getBoundingClientRect();
+        const fromRect = fromNode.getBoundingClientRect();
+        const toRect = toNode.getBoundingClientRect();
+        
+        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
+        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
+        const toX = toRect.left - containerRect.left + toRect.width / 2;
+        const toY = toRect.top - containerRect.top + toRect.height / 2;
+        
+        // Calculate distance and angle
+        const dx = toX - fromX;
+        const dy = toY - fromY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+        
+        // Create the line element
+        const line = document.createElement('div');
+        line.className = 'web-line';
+        line.style.width = `${distance}px`;
+        line.style.left = `${fromX}px`;
+        line.style.top = `${fromY}px`;
+        line.style.transform = `rotate(${angle}deg)`;
+        
+        container.appendChild(line);
+        return line;
+      }
+      
+      // Create a node element
+      function createNode(data, parentNode) {
+        const node = document.createElement('div');
+        node.className = `web-node ${data.type}`;
+        
+        // Create inner content
+        const nodeContent = document.createElement('div');
+        nodeContent.className = 'node-contents';
+        
+        // Add icon if available
+        if (data.icon) {
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'web-node-icon';
+          iconSpan.textContent = data.icon;
+          nodeContent.appendChild(iconSpan);
+        }
+        
+        // Add node name
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = data.name;
+        nodeContent.appendChild(nameSpan);
+        
+        node.appendChild(nodeContent);
+        
+        // For detail nodes, add specific detail content
+        if (data.detail) {
+          node.innerHTML = '';
+          node.className = 'web-node detail';
+          
+          const detailTitle = document.createElement('div');
+          detailTitle.className = 'detail-title';
+          detailTitle.textContent = data.detail.title;
+          node.appendChild(detailTitle);
+          
+          const detailContent = document.createElement('div');
+          detailContent.className = 'detail-content';
+          detailContent.textContent = data.detail.content;
+          node.appendChild(detailContent);
+          
+          if (data.detail.link) {
+            const link = document.createElement('a');
+            link.className = 'web-link';
+            link.href = data.detail.link.url;
+            link.textContent = data.detail.link.text;
+            if (data.detail.link.url.startsWith('http')) {
+              link.target = '_blank';
+            }
+            node.appendChild(link);
+          }
+          
+          // Add back button
+          const backButton = document.createElement('div');
+          backButton.className = 'back-button';
+          backButton.innerHTML = '×';
+          backButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            hideNode(node);
+          });
+          node.appendChild(backButton);
+        }
+        
+        container.appendChild(node);
+        
+        // Add click event to expand/collapse children
+        node.addEventListener('click', function() {
+          if (data.children) {
+            if (isExpanded(data.name)) {
+              // Collapse this node's children
+              collapseNode(node, data);
+            } else {
+              // Expand this node's children
+              expandNode(node, data);
+            }
+          } else if (data.detail && !node.classList.contains('detail')) {
+            // Show detail node
+            showDetailNode(data, node);
+          }
+        });
+        
+        return node;
+      }
+      
+      // Check if node is already expanded
+      function isExpanded(nodeName) {
+        return activeNodes.some(node => {
+          return node.querySelector('.node-contents span:last-child')?.textContent === nodeName &&
+                 node.nextElementSibling &&
+                 node.nextElementSibling.classList.contains('visible');
+        });
+      }
+      
+      // Show detail node for an item
+      function showDetailNode(data, parentNode) {
+        // Create a detail node as a child of the clicked node
+        const detailNode = document.createElement('div');
+        detailNode.className = 'web-node detail';
+        
+        // Add title
+        const detailTitle = document.createElement('div');
+        detailTitle.className = 'detail-title';
+        detailTitle.textContent = data.detail.title;
+        detailNode.appendChild(detailTitle);
+        
+        // Add content
+        const detailContent = document.createElement('div');
+        detailContent.className = 'detail-content';
+        detailContent.textContent = data.detail.content;
+        detailNode.appendChild(detailContent);
+        
+        // Add link if available
+        if (data.detail.link) {
+          const link = document.createElement('a');
+          link.className = 'web-link';
+          link.href = data.detail.link.url;
+          link.textContent = data.detail.link.text;
+          if (data.detail.link.url.startsWith('http')) {
+            link.target = '_blank';
+          }
+          detailNode.appendChild(link);
+        }
+        
+        // Add back button
+        const backButton = document.createElement('div');
+        backButton.className = 'back-button';
+        backButton.innerHTML = '×';
+        backButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          hideNode(detailNode);
+        });
+        detailNode.appendChild(backButton);
+        
+        // Position the detail node
+        const position = calculatePosition(0, 1, parentNode, 'detail');
+        detailNode.style.left = `${position.x - 120}px`;
+        detailNode.style.top = `${position.y - 120}px`;
+        
+        container.appendChild(detailNode);
+        
+        // Create connecting line
+        const line = createLine(parentNode, detailNode);
+        activeLines.push(line);
+        
+        // Add to active nodes
+        activeNodes.push(detailNode);
+        
+        // Make visible with animation
+        setTimeout(() => {
+          detailNode.classList.add('visible');
+          line.classList.add('visible');
+        }, 50);
+      }
+      
+      // Expand a node to show its children
+      function expandNode(node, data) {
+        if (!data.children || data.children.length === 0) return;
+        
+        // Create child nodes
+        const childNodes = [];
+        data.children.forEach((childData, index) => {
+          const childNode = createNode(childData, node);
+          const position = calculatePosition(index, data.children.length, node, childData.type);
+          
+          childNode.style.left = `${position.x - childNode.offsetWidth / 2}px`;
+          childNode.style.top = `${position.y - childNode.offsetHeight / 2}px`;
+          
+          childNodes.push(childNode);
+          activeNodes.push(childNode);
+          
+          // Create connecting line
+          const line = createLine(node, childNode);
+          activeLines.push(line);
+          
+          // Make nodes and lines visible with staggered animation
+          setTimeout(() => {
+            childNode.classList.add('visible');
+            line.classList.add('visible');
+          }, 50 + index * 100);
+        });
+      }
+      
+      // Collapse a node's children
+      function collapseNode(node) {
+        const nodeName = node.querySelector('.node-contents span:last-child')?.textContent;
+        
+        // Find and hide all direct children of this node
+        const childNodes = activeNodes.filter(activeNode => {
+          // Skip if this is the node itself
+          if (activeNode === node) return false;
+          
+          // Check if there's a line connecting this node to the child
+          const hasConnection = activeLines.some(line => {
+            const fromRect = node.getBoundingClientRect();
+            const lineRect = line.getBoundingClientRect();
+            
+            // Simple check if line starts near this node
+            return Math.abs(lineRect.left - (fromRect.left + fromRect.width / 2)) < 5 &&
+                   Math.abs(lineRect.top - (fromRect.top + fromRect.height / 2)) < 5;
+          });
+          
+          return hasConnection;
+        });
+        
+        // Hide all children
+        childNodes.forEach(childNode => {
+          hideNode(childNode);
+        });
+      }
+      
+      // Hide a node and its connecting line
+      function hideNode(node) {
+        // Remove visible class to animate out
+        node.classList.remove('visible');
+        
+        // Find and hide any lines connected to this node
+        const connectedLines = activeLines.filter(line => {
+          const nodeRect = node.getBoundingClientRect();
+          const lineRect = line.getBoundingClientRect();
+          
+          // Check if line starts or ends near this node
+          return (Math.abs(lineRect.left - (nodeRect.left + nodeRect.width / 2)) < 10 &&
+                 Math.abs(lineRect.top - (nodeRect.top + nodeRect.height / 2)) < 10) ||
+                 (Math.abs(lineRect.left + lineRect.width - (nodeRect.left + nodeRect.width / 2)) < 10 &&
+                 Math.abs(lineRect.top + lineRect.height - (nodeRect.top + nodeRect.height / 2)) < 10);
+        });
+        
+        connectedLines.forEach(line => {
+          line.classList.remove('visible');
+        });
+        
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+          // Find and remove any children of this node
+          const childNodes = activeNodes.filter(activeNode => {
+            // Skip if this is the node itself
+            if (activeNode === node) return false;
+            
+            // Check if there's a line connecting this node to the child
+            const hasConnection = connectedLines.some(line => {
+              const nodeRect = node.getBoundingClientRect();
+              const lineRect = line.getBoundingClientRect();
+              
+              // Simple check if line starts near this node
+              return Math.abs(lineRect.left - (nodeRect.left + nodeRect.width / 2)) < 5 &&
+                     Math.abs(lineRect.top - (nodeRect.top + nodeRect.height / 2)) < 5;
+            });
+            
+            return hasConnection;
+          });
+          
+          // Recursively hide children
+          childNodes.forEach(childNode => {
+            hideNode(childNode);
+          });
+          
+          // Remove this node and its lines
+          if (node.parentNode) {
+            node.parentNode.removeChild(node);
+          }
+          
+          connectedLines.forEach(line => {
+            if (line.parentNode) {
+              line.parentNode.removeChild(line);
+            }
+          });
+          
+          // Update active nodes and lines
+          activeNodes = activeNodes.filter(n => n !== node);
+          activeLines = activeLines.filter(l => !connectedLines.includes(l));
+        }, 500);
+      }
+      
+      // Initialize web on load
+      initWeb();
+      
+      // Reset button event
+      resetButton.addEventListener('click', resetWeb);
+      
+      // Handle window resize
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resetWeb, 250);
       });
-    });
+    })();
   </script>
 </body>
 </html>
