@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hannah Stone</title>
-
+  
+  <!-- Multiple favicon formats for better browser compatibility -->
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-
+  
   <style>
     :root {
       --primary-color: #4B6BFB;
@@ -25,11 +26,12 @@
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
+      line-height: 1.5;
       color: var(--text-color);
-      max-width: 900px;
+      max-width: 850px;
       margin: 0 auto;
       padding: 1rem 2rem 4rem;
+      font-size: 15px; /* Base font size reduced */
     }
     
     /* Clean header with logo */
@@ -37,25 +39,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 0 2rem;
+      padding: 0.75rem 0 1.5rem;
       border-bottom: 1px solid var(--light-gray);
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
     
     .logo {
-      height: 40px;
+      height: 32px; /* Smaller logo */
       width: auto;
     }
     
     .nav-menu {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
     }
     
     .nav-link {
       text-decoration: none;
       color: var(--text-color);
       font-weight: 500;
+      font-size: 0.9rem; /* Smaller nav links */
       transition: color 0.2s;
     }
     
@@ -66,13 +69,13 @@
     .profile-container {
       display: flex;
       align-items: flex-start;
-      gap: 3rem;
-      margin-bottom: 3rem;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
     }
     
     .profile-photo {
-      width: 200px;
-      height: 200px;
+      width: 160px; /* Smaller profile photo */
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
       overflow: hidden;
@@ -90,28 +93,28 @@
     }
     
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.1rem; /* Smaller heading */
+      margin-bottom: 0.75rem;
       font-weight: 600;
     }
     
     p {
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
+      font-size: 1rem; /* Smaller paragraph text */
+      margin-bottom: 1.25rem;
       max-width: 600px;
     }
     
     .social-links {
       display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
     }
     
     .icon-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 45px;
-      height: 45px;
+      width: 38px; /* Smaller icons */
+      height: 38px;
       border-radius: 50%;
       background-color: #333;
       color: white;
@@ -124,12 +127,12 @@
     }
     
     section {
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
     
     h2 {
-      font-size: 1.75rem;
-      margin-bottom: 1.25rem;
+      font-size: 1.5rem; /* Smaller section headings */
+      margin-bottom: 1rem;
       font-weight: 600;
       position: relative;
       display: inline-block;
@@ -138,10 +141,10 @@
     h2::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: -4px;
       left: 0;
       width: 100%;
-      height: 3px;
+      height: 2px; /* Thinner underline */
       background-color: var(--primary-color);
       border-radius: 2px;
     }
@@ -152,9 +155,9 @@
     
     li {
       position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem; /* Smaller list items */
     }
     
     li::before {
@@ -223,18 +226,18 @@
       <img src="https://media.licdn.com/dms/image/v2/D5603AQGCO4PKiKreuQ/profile-displayphoto-shrink_400_400/B56ZOTJX2cGgAk-/0/1733340528948?e=1749081600&v=beta&t=gNYhLw_BOh1N-Y3WjZvjxTHJ1euYAd1mUqIqxsfO4mA" alt="Hannah Stone">
     </div>
     <div class="profile-content">
-      <h1>Hi, I'm Hannah Stone!</h1>
+      <h1>Hi, I'm Hannah Stone</h1>
       <p>
-        I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship.
+        I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship. I'm originally from Lawrence, Kansas.
       </p>
       <div class="social-links">
         <a href="https://linkedin.com/in/hannahstone1" class="icon-link" target="_blank" aria-label="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
           </svg>
         </a>
         <a href="mailto:hannahstonekansas@gmail.com" class="icon-link" aria-label="Email">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
           </svg>
         </a>
