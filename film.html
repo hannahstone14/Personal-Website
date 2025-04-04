@@ -130,9 +130,8 @@
     /* Film cards - made them smaller and ensured uniform size */
     .films-list {
       display: flex;
-      flex-wrap: nowrap;
+      justify-content: space-between;
       gap: 1rem;
-      overflow-x: auto;
       padding-bottom: 1rem;
     }
     
@@ -207,12 +206,13 @@
     
     /* TV Shows section */
     .tv-shows-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      display: flex;
+      justify-content: space-between;
       gap: 1rem;
     }
     
     .tv-show-card {
+      flex: 0 0 120px; /* Match film card size */
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -224,16 +224,20 @@
     }
     
     .tv-show-poster {
-      width: 100%;
-      aspect-ratio: 2/3;
+      width: 120px;
+      height: 180px; /* Match film poster size */
       object-fit: cover;
     }
     
     .tv-show-title {
       padding: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 500;
       text-align: center;
+      height: 40px; /* Match film title height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     /* Last updated text */
@@ -281,7 +285,8 @@
       }
       
       .tv-shows-grid {
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
@@ -352,54 +357,7 @@
     </div>
   </div>
   
-  <!-- People sections - Directors and Actors side by side -->
-  <div class="people-section">
-    <!-- Directors with circular avatars -->
-    <div>
-      <h2 class="section-title">Most Watched Directors</h2>
-      <ul class="person-list">
-        <li class="person-item">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Steven_Spielberg_by_Gage_Skidmore.jpg" class="person-avatar" alt="Alfred Hitchcock">
-          <span class="person-name">Alfred Hitchcock</span>
-          <span class="person-count">8</span>
-        </li>
-        <li class="person-item">
-          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/3/3/3/1/3/1/tmdb/tTdP13xdWKErPO8zQOO8fjtppT-0-360-0-540-crop.jpg?v=c5e3871566" class="person-avatar" alt="Emerald Fennel">
-          <span class="person-name">Emerald Fennel</span>
-          <span class="person-count">3</span>
-        </li>
-        <li class="person-item">
-          <img src="https://image.tmdb.org/t/p/w342/jsSFCVB7MhuVbSLwTgESiXEiNjt.jpg" class="person-avatar" alt="Park Chan-wook">
-          <span class="person-name">Park Chan-wook</span>
-          <span class="person-count">5</span>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Favorite Actors with circular avatars -->
-    <div>
-      <h2 class="section-title">Favorite Actors</h2>
-      <ul class="person-list">
-        <li class="person-item">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg/1200px-Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg" class="person-avatar" alt="Jimmy Stewart">
-          <span class="person-name">Jimmy Stewart</span>
-          <span class="person-count">25</span>
-        </li>
-        <li class="person-item">
-          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/7/8/0/7/6/tmdb/2zyOjda95OfAAsJvuwTV0UaznPZ-0-360-0-540-crop.jpg?v=7d51fd3c3a" class="person-avatar" alt="Rachel McAdams">
-          <span class="person-name">Rachel McAdams</span>
-          <span class="person-count">13</span>
-        </li>
-        <li class="person-item">
-          <img src="https://image.tmdb.org/t/p/w342/8e6mt0vGjPo6eW52gqRuXy5YnfN.jpg" class="person-avatar" alt="Jason Bateman">
-          <span class="person-name">Jason Bateman</span>
-          <span class="person-count">21</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-  
-  <!-- TV Shows section -->
+  <!-- TV Shows section - moved directly under films -->
   <div class="content-section">
     <h2 class="section-title">Favorite TV Shows</h2>
     <div class="tv-shows-grid">
@@ -422,6 +380,52 @@
         <img src="https://m.media-amazon.com/images/M/MV5BODI0ZTljYTMtODQ1NC00NmI0LTk1YWUtN2FlNDM1MDExMDlhXkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_.jpg" class="tv-show-poster" alt="The Bear">
         <div class="tv-show-title">The Bear</div>
       </div>
+      
+      <div class="tv-show-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BYjg1ZmQ0ZDktMjNhZS00MDJjLThiMTEtMGRkMTNhNDExYTc1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" class="tv-show-poster" alt="Ted Lasso">
+        <div class="tv-show-title">Ted Lasso</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- People sections - Directors and Actors side by side -->
+  <div class="people-section">
+    <!-- Directors with circular avatars -->
+    <div>
+      <h2 class="section-title">Most Watched Directors</h2>
+      <ul class="person-list">
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Alfred_Hitchcock_1955.jpg" class="person-avatar" alt="Alfred Hitchcock">
+          <span class="person-name">Alfred Hitchcock</span>
+        </li>
+        <li class="person-item">
+          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/3/3/3/1/3/1/tmdb/tTdP13xdWKErPO8zQOO8fjtppT-0-360-0-540-crop.jpg?v=c5e3871566" class="person-avatar" alt="Emerald Fennel">
+          <span class="person-name">Emerald Fennel</span>
+        </li>
+        <li class="person-item">
+          <img src="https://image.tmdb.org/t/p/w342/jsSFCVB7MhuVbSLwTgESiXEiNjt.jpg" class="person-avatar" alt="Park Chan-wook">
+          <span class="person-name">Park Chan-wook</span>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Favorite Actors with circular avatars -->
+    <div>
+      <h2 class="section-title">Favorite Actors</h2>
+      <ul class="person-list">
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg/1200px-Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg" class="person-avatar" alt="Jimmy Stewart">
+          <span class="person-name">Jimmy Stewart</span>
+        </li>
+        <li class="person-item">
+          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/7/8/0/7/6/tmdb/2zyOjda95OfAAsJvuwTV0UaznPZ-0-360-0-540-crop.jpg?v=7d51fd3c3a" class="person-avatar" alt="Rachel McAdams">
+          <span class="person-name">Rachel McAdams</span>
+        </li>
+        <li class="person-item">
+          <img src="https://image.tmdb.org/t/p/w342/8e6mt0vGjPo6eW52gqRuXy5YnfN.jpg" class="person-avatar" alt="Jason Bateman">
+          <span class="person-name">Jason Bateman</span>
+        </li>
+      </ul>
     </div>
   </div>
   
