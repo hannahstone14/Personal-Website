@@ -28,6 +28,30 @@
       padding: 4rem 2rem; /* Added more padding top and bottom */
     }
     
+    /* Header with logo */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    
+    .logo-left {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .logo-center-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-center {
+      width: 120px;
+      height: auto;
+    }
+    
     .profile-container {
       display: flex;
       align-items: flex-start;
@@ -157,13 +181,35 @@
         display: block;
         text-align: center;
       }
+      
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Header with top-left logo -->
+  <header class="header">
+    <div class="logo-left">
+      <!-- Replace with your actual logo or use a placeholder -->
+      <img src="https://drive.google.com/file/d/1SE51RaCmO826CeznVnhQ96Y-Cie4jYe1/view?usp=sharing" alt="Logo">
+    </div>
+    <div><!-- Empty div to push the right side content --></div>
+  </header>
+  
+  <!-- Center logo -->
+  <div class="logo-center-container">
+    <div class="logo-center">
+      <!-- Replace with your actual center logo -->
+      <img src="https://drive.google.com/file/d/1ZfRsF3L1mnIYDf09n8l-KQPt5ZMUgtJ9/view?usp=sharing" alt="Center Logo">
+    </div>
+  </div>
+
   <div class="profile-container">
     <div class="profile-photo">
-      <img src="https://via.placeholder.com/200" alt="Hannah Stone">
+      <img src="https://media.licdn.com/dms/image/v2/D5603AQGCO4PKiKreuQ/profile-displayphoto-shrink_400_400/B56ZOTJX2cGgAk-/0/1733340528948?e=1749081600&v=beta&t=gNYhLw_BOh1N-Y3WjZvjxTHJ1euYAd1mUqIqxsfO4mA" alt="Hannah Stone">
     </div>
     <div class="profile-content">
       <h1>Hi, I'm Hannah Stone</h1>
