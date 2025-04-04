@@ -45,7 +45,7 @@
     }
     
     .logo {
-      height: 32px;
+      height: 28px; /* Match the size from index.html */
       width: auto;
     }
     
@@ -58,7 +58,7 @@
       text-decoration: none;
       color: var(--text-color);
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* Match size from index.html */
       transition: color 0.2s;
     }
     
@@ -123,17 +123,21 @@
       border-bottom: 2px solid var(--light-gray);
     }
     
-    .top-films {
+    .content-section {
       margin-bottom: 3rem;
     }
     
+    /* Film cards - made them smaller and ensured uniform size */
     .films-list {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
+      flex-wrap: nowrap;
       gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
     }
     
     .film-card {
+      flex: 0 0 120px; /* Fixed width for all cards */
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -145,16 +149,20 @@
     }
     
     .film-poster {
-      width: 100%;
-      aspect-ratio: 2/3;
+      width: 120px;
+      height: 180px; /* Fixed height for all posters */
       object-fit: cover;
     }
     
     .film-title {
-      padding: 0.75rem;
-      font-size: 0.8rem;
+      padding: 0.5rem;
+      font-size: 0.7rem;
       font-weight: 500;
       text-align: center;
+      height: 40px; /* Fixed height for title */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     /* People sections */
@@ -172,26 +180,60 @@
     .person-item {
       display: flex;
       align-items: center;
-      padding: 1rem 0;
+      padding: 0.75rem 0;
       border-bottom: 1px solid var(--light-gray);
     }
     
     .person-avatar {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       object-fit: cover;
       margin-right: 1rem;
+      border: 2px solid var(--light-gray);
     }
     
     .person-name {
       font-weight: 500;
       flex-grow: 1;
+      font-size: 0.9rem;
     }
     
     .person-count {
       color: var(--primary-color);
       font-weight: 600;
+      font-size: 0.8rem;
+    }
+    
+    /* TV Shows section */
+    .tv-shows-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    
+    .tv-show-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+    
+    .tv-show-card:hover {
+      transform: scale(1.03);
+    }
+    
+    .tv-show-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+    
+    .tv-show-title {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-align: center;
     }
     
     /* Last updated text */
@@ -233,13 +275,13 @@
         grid-template-columns: repeat(1, 1fr);
       }
       
-      .films-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
       .people-section {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.5rem;
+      }
+      
+      .tv-shows-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
@@ -280,31 +322,31 @@
   </div>
   
   <!-- Top films section - all 5 films in one row -->
-  <div class="top-films">
+  <div class="content-section">
     <h2 class="section-title">My Top Films</h2>
     <div class="films-list">
       <div class="film-card">
-        <img src="https://a.ltrbxd.com/resized/alternative-poster/5/0/9/4/9/p/eXdKJVuv256nXmYXnhVW9DBBQ6w-0-2000-0-3000-crop.jpg?v=9532ad22cb">
+        <img src="https://a.ltrbxd.com/resized/alternative-poster/5/0/9/4/9/p/eXdKJVuv256nXmYXnhVW9DBBQ6w-0-2000-0-3000-crop.jpg?v=9532ad22cb" class="film-poster">
         <div class="film-title">It's a Wonderful Life</div>
       </div>
       
       <div class="film-card">
-        <img src="https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" alt="The Lord of the Rings: The Two Towers" class="film-poster">
+        <img src="https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" class="film-poster">
         <div class="film-title">The Lord of the Rings: The Two Towers</div>
       </div>
       
       <div class="film-card">
-        <img src="https://a.ltrbxd.com/resized/alternative-poster/3/9/0/8/2/p/pTHrqnxtmVGXZVmwDlU1dKsq4ad-0-2000-0-3000-crop.jpg?v=ee4b06ef54">
+        <img src="https://a.ltrbxd.com/resized/alternative-poster/3/9/0/8/2/p/pTHrqnxtmVGXZVmwDlU1dKsq4ad-0-2000-0-3000-crop.jpg?v=ee4b06ef54" class="film-poster">
         <div class="film-title">The Shop Around the Corner</div>
       </div>
       
       <div class="film-card">
-        <img src="https://m.media-amazon.com/images/M/MV5BZTcyNjk1MjgtOWI3Mi00YzQwLWI5MTktMzY4ZmI2NDAyNzYzXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" alt="Memento" class="film-poster">
+        <img src="https://m.media-amazon.com/images/M/MV5BZTcyNjk1MjgtOWI3Mi00YzQwLWI5MTktMzY4ZmI2NDAyNzYzXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" class="film-poster">
         <div class="film-title">Memento</div>
       </div>
       
       <div class="film-card">
-        <img src="https://a.ltrbxd.com/resized/alternative-poster/5/1/7/1/2/p/rpUAw7ptkpuPyQZHMUNNc2Q82PW-0-2000-0-3000-crop.jpg?v=04930ff181">
+        <img src="https://a.ltrbxd.com/resized/alternative-poster/5/1/7/1/2/p/rpUAw7ptkpuPyQZHMUNNc2Q82PW-0-2000-0-3000-crop.jpg?v=04930ff181" class="film-poster">
         <div class="film-title">The Devil Wears Prada</div>
       </div>
     </div>
@@ -312,46 +354,74 @@
   
   <!-- People sections - Directors and Actors side by side -->
   <div class="people-section">
-    <!-- Directors with avatars -->
+    <!-- Directors with circular avatars -->
     <div>
       <h2 class="section-title">Most Watched Directors</h2>
       <ul class="person-list">
         <li class="person-item">
-          <img src="https://image.tmdb.org/t/p/w342/108fiNM6poRieMg7RIqLJRxdAwG.jpgr">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Steven_Spielberg_by_Gage_Skidmore.jpg" class="person-avatar" alt="Alfred Hitchcock">
           <span class="person-name">Alfred Hitchcock</span>
+          <span class="person-count">8</span>
         </li>
         <li class="person-item">
-          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/3/3/3/1/3/1/tmdb/tTdP13xdWKErPO8zQOO8fjtppT-0-360-0-540-crop.jpg?v=c5e3871566
-          " alt="Christopher Nolan" class="person-avatar">
+          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/3/3/3/1/3/1/tmdb/tTdP13xdWKErPO8zQOO8fjtppT-0-360-0-540-crop.jpg?v=c5e3871566" class="person-avatar" alt="Emerald Fennel">
           <span class="person-name">Emerald Fennel</span>
+          <span class="person-count">3</span>
         </li>
         <li class="person-item">
-          <img src="https://image.tmdb.org/t/p/w342/jsSFCVB7MhuVbSLwTgESiXEiNjt.jpg">
+          <img src="https://image.tmdb.org/t/p/w342/jsSFCVB7MhuVbSLwTgESiXEiNjt.jpg" class="person-avatar" alt="Park Chan-wook">
           <span class="person-name">Park Chan-wook</span>
+          <span class="person-count">5</span>
         </li>
       </ul>
     </div>
     
-    <!-- Favorite Actors with avatars -->
+    <!-- Favorite Actors with circular avatars -->
     <div>
       <h2 class="section-title">Favorite Actors</h2>
       <ul class="person-list">
         <li class="person-item">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg/1200px-Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg/1200px-Annex_-_Stewart%2C_James_%28Call_Northside_777%29_01.jpg" class="person-avatar" alt="Jimmy Stewart">
           <span class="person-name">Jimmy Stewart</span>
           <span class="person-count">25</span>
         </li>
         <li class="person-item">
-          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/7/8/0/7/6/tmdb/2zyOjda95OfAAsJvuwTV0UaznPZ-0-360-0-540-crop.jpg?v=7d51fd3c3a">
+          <img src="https://a.ltrbxd.com/resized/alternative-contributor-poster/7/8/0/7/6/tmdb/2zyOjda95OfAAsJvuwTV0UaznPZ-0-360-0-540-crop.jpg?v=7d51fd3c3a" class="person-avatar" alt="Rachel McAdams">
           <span class="person-name">Rachel McAdams</span>
           <span class="person-count">13</span>
         </li>
         <li class="person-item">
-          <img src="https://image.tmdb.org/t/p/w342/8e6mt0vGjPo6eW52gqRuXy5YnfN.jpg">
+          <img src="https://image.tmdb.org/t/p/w342/8e6mt0vGjPo6eW52gqRuXy5YnfN.jpg" class="person-avatar" alt="Jason Bateman">
           <span class="person-name">Jason Bateman</span>
           <span class="person-count">21</span>
         </li>
       </ul>
+    </div>
+  </div>
+  
+  <!-- TV Shows section -->
+  <div class="content-section">
+    <h2 class="section-title">Favorite TV Shows</h2>
+    <div class="tv-shows-grid">
+      <div class="tv-show-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BNzRhNWIxYTEtYjc2NS00YWFlLWFhOGEtMDZiMWM1M2RkNDkyXkEyXkFqcGdeQXVyNjc0MjkzNjc@._V1_.jpg" class="tv-show-poster" alt="Arrested Development">
+        <div class="tv-show-title">Arrested Development</div>
+      </div>
+      
+      <div class="tv-show-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BODMxYTNjNTMtOTdhMS00ZGI3LTkzYmQtNTI4YmI1YmIwZGMwXkEyXkFqcGdeQXVyNTY3MTYzOTA@._V1_.jpg" class="tv-show-poster" alt="Succession">
+        <div class="tv-show-title">Succession</div>
+      </div>
+      
+      <div class="tv-show-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTk0NzZqODctMDNlOC00ZGU1LWI1ZjktMDZkMmRjNWI1NWFiXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_.jpg" class="tv-show-poster" alt="The White Lotus">
+        <div class="tv-show-title">The White Lotus</div>
+      </div>
+      
+      <div class="tv-show-card">
+        <img src="https://m.media-amazon.com/images/M/MV5BODI0ZTljYTMtODQ1NC00NmI0LTk1YWUtN2FlNDM1MDExMDlhXkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_.jpg" class="tv-show-poster" alt="The Bear">
+        <div class="tv-show-title">The Bear</div>
+      </div>
     </div>
   </div>
   
