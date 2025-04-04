@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Film Stats | Hannah Stone</title>
+  <title>Letterboxd 2.0 | Hannah Stone</title>
   
   <!-- Same favicon as your main page -->
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
@@ -83,7 +82,7 @@
     /* Stats grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin-bottom: 3rem;
     }
@@ -130,8 +129,8 @@
     
     .films-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
     }
     
     .film-card {
@@ -153,28 +152,44 @@
     
     .film-title {
       padding: 0.75rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 500;
       text-align: center;
     }
     
-    /* Directors section */
-    .directors-list {
+    /* People sections */
+    .people-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .person-list {
       list-style: none;
     }
     
-    .director-item {
+    .person-item {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
       padding: 1rem 0;
       border-bottom: 1px solid var(--light-gray);
     }
     
-    .director-name {
-      font-weight: 500;
+    .person-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1rem;
     }
     
-    .director-count {
+    .person-name {
+      font-weight: 500;
+      flex-grow: 1;
+    }
+    
+    .person-count {
       color: var(--primary-color);
       font-weight: 600;
     }
@@ -215,11 +230,16 @@
       }
       
       .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
       }
       
       .films-list {
         grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .people-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
     }
   </style>
@@ -238,10 +258,10 @@
     </nav>
   </header>
 
-  <h1>My Film Journey</h1>
+  <h1>Letterboxd 2.0</h1>
   <p class="page-subtitle">Tracking my cinematic adventures through the years</p>
   
-  <!-- Main stats grid -->
+  <!-- Main stats grid - reduced to just 3 stats -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-number">1,886</div>
@@ -257,24 +277,9 @@
       <div class="stat-number">1,376</div>
       <div class="stat-label">Directors</div>
     </div>
-    
-    <div class="stat-card">
-      <div class="stat-number">40</div>
-      <div class="stat-label">Countries</div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-number">26w</div>
-      <div class="stat-label">Longest Streak</div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-number">180</div>
-      <div class="stat-label">2+ Film Days</div>
-    </div>
   </div>
   
-  <!-- Top films section -->
+  <!-- Top films section - all 5 films in one row -->
   <div class="top-films">
     <h2 class="section-title">My Top Films</h2>
     <div class="films-list">
@@ -305,22 +310,52 @@
     </div>
   </div>
   
-  <!-- Top directors section -->
-  <h2 class="section-title">Most Watched Directors</h2>
-  <ul class="directors-list">
-    <li class="director-item">
-      <span class="director-name">Steven Spielberg</span>
-      <span class="director-count">12 films</span>
-    </li>
-    <li class="director-item">
-      <span class="director-name">Christopher Nolan</span>
-      <span class="director-count">10 films</span>
-    </li>
-    <li class="director-item">
-      <span class="director-name">Alfred Hitchcock</span>
-      <span class="director-count">8 films</span>
-    </li>
-  </ul>
+  <!-- People sections - Directors and Actors side by side -->
+  <div class="people-section">
+    <!-- Directors with avatars -->
+    <div>
+      <h2 class="section-title">Most Watched Directors</h2>
+      <ul class="person-list">
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Steven_Spielberg_by_Gage_Skidmore.jpg" alt="Steven Spielberg" class="person-avatar">
+          <span class="person-name">Steven Spielberg</span>
+          <span class="person-count">12</span>
+        </li>
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Christopher_Nolan_Cannes_2018.jpg" alt="Christopher Nolan" class="person-avatar">
+          <span class="person-name">Christopher Nolan</span>
+          <span class="person-count">10</span>
+        </li>
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Alfred_Hitchcock_NYWTS_2.jpg" alt="Alfred Hitchcock" class="person-avatar">
+          <span class="person-name">Alfred Hitchcock</span>
+          <span class="person-count">8</span>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Favorite Actors with avatars -->
+    <div>
+      <h2 class="section-title">Favorite Actors</h2>
+      <ul class="person-list">
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Meryl_Streep_2014_%28cropped%29.jpg/440px-Meryl_Streep_2014_%28cropped%29.jpg" alt="Meryl Streep" class="person-avatar">
+          <span class="person-name">Meryl Streep</span>
+          <span class="person-count">14</span>
+        </li>
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Tom_Hanks_2019_by_Glenn_Francis.jpg" alt="Tom Hanks" class="person-avatar">
+          <span class="person-name">Tom Hanks</span>
+          <span class="person-count">11</span>
+        </li>
+        <li class="person-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Leonardo_DiCaprio_June_2014.jpg/440px-Leonardo_DiCaprio_June_2014.jpg" alt="Leonardo DiCaprio" class="person-avatar">
+          <span class="person-name">Leonardo DiCaprio</span>
+          <span class="person-count">9</span>
+        </li>
+      </ul>
+    </div>
+  </div>
   
   <p class="update-info">Last updated: <span id="update-date">May 5, 2024</span></p>
   <a href="/" class="back-link">← Back to Home</a>
