@@ -501,17 +501,52 @@
       color: var(--text-color);
       font-weight: 600;
       text-align: center;
+      animation: pulse 2s infinite alternate;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      100% {
+        box-shadow: 0 6px 20px rgba(115, 165, 255, 0.3);
+      }
     }
     
     .web-node.visible {
       opacity: 1;
       transform: scale(1);
+      animation: nodeAppear 0.5s forwards, pulse 2s infinite alternate;
+    }
+    
+    @keyframes nodeAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      60% {
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
     
     .web-node:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
       z-index: 20;
+      animation: hover-pulse 1s infinite alternate;
+    }
+    
+    @keyframes hover-pulse {
+      0% {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+      100% {
+        box-shadow: 0 8px 25px rgba(115, 165, 255, 0.4);
+      }
     }
     
     .web-node.root {
@@ -593,11 +628,35 @@
       transform-origin: 0 0;
       z-index: 5;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease, background-color 0.5s ease;
+      animation: linePulse 3s infinite alternate;
+    }
+    
+    @keyframes linePulse {
+      0% {
+        background-color: rgba(115, 165, 255, 0.3);
+        height: 2px;
+      }
+      100% {
+        background-color: rgba(115, 165, 255, 0.6);
+        height: 2.5px;
+      }
     }
     
     .web-line.visible {
       opacity: 1;
+      animation: lineAppear 0.5s forwards, linePulse 3s infinite alternate;
+    }
+    
+    @keyframes lineAppear {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
     }
     
     .web-node-icon {
@@ -650,6 +709,56 @@
     .reset-button:hover {
       background-color: rgba(115, 165, 255, 0.15);
       transform: translateY(-2px);
+    }
+    
+    .detail-content-wrapper {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      animation: contentFadeIn 0.5s 0.2s forwards;
+    }
+    
+    @keyframes contentFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .web-node.detail-node {
+      animation: none;
+      border-radius: 10px;
+      display: block;
+      overflow-y: auto;
+      text-align: left;
+      font-weight: normal;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      padding: 15px;
+      width: 240px;
+      height: 240px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      border: none;
+      background-color: white;
+    }
+    
+    .web-node.detail-node.visible {
+      animation: detailAppear 0.4s forwards;
+    }
+    
+    @keyframes detailAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
     
     @media (max-width: 768px) {
@@ -827,7 +936,7 @@
   </section>
   
   <section id="enjoy">
-    <h2>I Enjoy...</h2>
+    <h2>Beyond Work...</h2>
     <div class="web-container" id="interest-web">
       <!-- Web nodes will be dynamically generated -->
     </div>
@@ -865,90 +974,100 @@
         type: "root",
         children: [
           {
-            name: "Media",
+            name: "Eating",
             type: "category",
-            icon: "📺",
+            icon: "🍽️",
             children: [
               {
-                name: "Books",
+                name: "Cafes",
                 type: "subcategory",
-                icon: "📚",
-                children: [
-                  {
-                    name: "Fiction",
-                    type: "item",
-                    icon: "📕",
-                    detail: {
-                      title: "Fiction Books",
-                      content: "I love literary fiction that challenges perspectives and introduces new worlds. Some of my favorite authors include Kazuo Ishiguro, Donna Tartt, and Gabriel García Márquez.",
-                      link: {
-                        text: "View my reading list",
-                        url: "https://books.hannahstone.org"
-                      }
-                    }
-                  },
-                  {
-                    name: "Non-Fiction",
-                    type: "item",
-                    icon: "📗",
-                    detail: {
-                      title: "Non-Fiction Books",
-                      content: "I read a lot of business strategy, economics, and psychology books to expand my knowledge. Recently I've been exploring works on behavioral economics and decision-making.",
-                      link: {
-                        text: "View my reading list",
-                        url: "https://books.hannahstone.org"
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                name: "Film",
-                type: "subcategory",
-                icon: "🎬",
-                children: [
-                  {
-                    name: "Directors",
-                    type: "item",
-                    icon: "🎥",
-                    detail: {
-                      title: "Favorite Directors",
-                      content: "I admire the work of Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. I appreciate directors who blend technical mastery with compelling storytelling.",
-                      link: {
-                        text: "See my film page",
-                        url: "film.html"
-                      }
-                    }
-                  },
-                  {
-                    name: "Movies",
-                    type: "item",
-                    icon: "🍿",
-                    detail: {
-                      title: "Favorite Films",
-                      content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.'",
-                      link: {
-                        text: "See my film page",
-                        url: "film.html"
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                name: "TV Shows",
-                type: "subcategory",
-                icon: "📺",
+                icon: "☕",
                 detail: {
-                  title: "Television",
-                  content: "I enjoy watching well-crafted series with complex characters and compelling narratives. Favorites include Succession, The White Lotus, Arrested Development, and The Bear.",
+                  title: "Favorite Cafes",
+                  content: "I love spending mornings at cozy cafes with great ambiance. My favorites include Blue Bottle in NYC, The Mill in San Francisco, and local spots like Daylight Coffee in Lawrence. I always try the specialty drinks and pastries.",
+                  link: null
+                }
+              },
+              {
+                name: "Restaurants",
+                type: "subcategory",
+                icon: "🍴",
+                detail: {
+                  title: "Favorite Restaurants",
+                  content: "I'm always on the hunt for hidden culinary gems. My current top picks include Japanese izakayas, Mediterranean mezze spots, and authentic Mexican taquerias. I keep a food journal to document memorable dishes from my travels.",
                   link: null
                 }
               }
             ]
           },
           {
-            name: "Travel",
+            name: "Film",
+            type: "category",
+            icon: "🎬",
+            children: [
+              {
+                name: "Directors",
+                type: "subcategory",
+                icon: "🎥",
+                detail: {
+                  title: "Favorite Directors",
+                  content: "I admire the work of Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. I appreciate directors who blend technical mastery with compelling storytelling and unique visual styles.",
+                  link: {
+                    text: "See my film page",
+                    url: "film.html"
+                  }
+                }
+              },
+              {
+                name: "Movies",
+                type: "subcategory",
+                icon: "🍿",
+                detail: {
+                  title: "Favorite Films",
+                  content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.' I enjoy films that combine emotional depth with visual creativity.",
+                  link: {
+                    text: "See my film page",
+                    url: "film.html"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "Reading",
+            type: "category",
+            icon: "📚",
+            children: [
+              {
+                name: "Fiction",
+                type: "subcategory",
+                icon: "📕",
+                detail: {
+                  title: "Fiction Books",
+                  content: "I love literary fiction that challenges perspectives and introduces new worlds. Some of my favorite authors include Kazuo Ishiguro, Donna Tartt, and Gabriel García Márquez. Historical fiction and magical realism are genres I particularly enjoy.",
+                  link: {
+                    text: "View my reading list",
+                    url: "https://books.hannahstone.org"
+                  }
+                }
+              },
+              {
+                name: "Non-Fiction",
+                type: "subcategory",
+                icon: "📗",
+                detail: {
+                  title: "Non-Fiction Books",
+                  content: "I read extensively on business strategy, economics, and psychology to expand my knowledge. Recently I've been exploring works on behavioral economics, decision-making science, and the psychology of happiness.",
+                  link: {
+                    text: "View my reading list",
+                    url: "https://books.hannahstone.org"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "Traveling",
             type: "category",
             icon: "✈️",
             children: [
@@ -958,7 +1077,7 @@
                 icon: "🏙️",
                 detail: {
                   title: "Urban Exploration",
-                  content: "I love exploring cities and their unique cultures, architecture, and cuisines. Tokyo, Barcelona, and Istanbul are among my favorite urban destinations.",
+                  content: "I love exploring cities and their unique cultures, architecture, and cuisines. Tokyo, Barcelona, and Istanbul are among my favorite urban destinations. I enjoy getting lost in neighborhoods away from tourist centers to discover local gems.",
                   link: null
                 }
               },
@@ -968,16 +1087,16 @@
                 icon: "🏞️",
                 detail: {
                   title: "Nature Destinations",
-                  content: "From Norwegian fjords to New Zealand landscapes, I'm drawn to breathtaking natural settings. Hiking and photography are my favorite activities in these locations.",
+                  content: "From Norwegian fjords to New Zealand landscapes, I'm drawn to breathtaking natural settings. Hiking and photography are my favorite activities in these locations. My bucket list includes Patagonia and the national parks of Utah.",
                   link: null
                 }
               }
             ]
           },
           {
-            name: "Sports",
+            name: "Being Outdoors",
             type: "category",
-            icon: "🏆",
+            icon: "🌲",
             children: [
               {
                 name: "Golf",
@@ -985,7 +1104,7 @@
                 icon: "🏌️‍♀️",
                 detail: {
                   title: "Golf",
-                  content: "I currently play at a 14 handicap and enjoy the mental challenge golf provides. It's a perfect blend of technical skill, strategy, and outdoor appreciation.",
+                  content: "I currently play at a 14 handicap and enjoy the mental challenge golf provides. It's a perfect blend of technical skill, strategy, and outdoor appreciation. My favorite courses include Pebble Beach and local hidden gems.",
                   link: null
                 }
               },
@@ -995,34 +1114,17 @@
                 icon: "🎿",
                 detail: {
                   title: "Skiing",
-                  content: "My favorite skiing destinations include Breckenridge and Park City. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs.",
-                  link: null
-                }
-              }
-            ]
-          },
-          {
-            name: "Food",
-            type: "category",
-            icon: "🍴",
-            children: [
-              {
-                name: "Restaurants",
-                type: "subcategory",
-                icon: "🍽️",
-                detail: {
-                  title: "Restaurant Exploration",
-                  content: "I maintain a food journal documenting favorite dishes and restaurants from around the world. I especially enjoy finding hidden local gems when traveling.",
+                  content: "My favorite skiing destinations include Breckenridge and Park City. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs. The combination of adrenaline, scenery, and après-ski culture keeps me coming back.",
                   link: null
                 }
               },
               {
-                name: "Cuisines",
+                name: "Hiking",
                 type: "subcategory",
-                icon: "🌮",
+                icon: "🥾",
                 detail: {
-                  title: "Global Cuisines",
-                  content: "Japanese, Mediterranean, and Mexican are among my favorite cuisines. I appreciate dishes that balance complexity, tradition, and innovation.",
+                  title: "Hiking Adventures",
+                  content: "I try to take on at least one major hiking trip annually. Recent favorites include sections of the Appalachian Trail and coastal paths in Oregon. I find hiking to be both meditative and invigorating - a perfect escape from digital life.",
                   link: null
                 }
               }
@@ -1036,6 +1138,7 @@
       const resetButton = document.getElementById('reset-web');
       let activeNodes = [];
       let activeLines = [];
+      let currentCenterNode = null;
       
       // Initialize the web with the root node
       function initWeb() {
@@ -1048,6 +1151,7 @@
           if (rootNode) {
             rootNode.classList.add('visible');
             activeNodes.push(rootNode);
+            currentCenterNode = rootNode;
           }
         }, 300);
       }
@@ -1057,6 +1161,7 @@
         container.innerHTML = '';
         activeNodes = [];
         activeLines = [];
+        currentCenterNode = null;
       }
       
       // Reset web to initial state
@@ -1090,11 +1195,11 @@
         const parentX = parentRect.left - containerRect.left + parentRect.width / 2;
         const parentY = parentRect.top - containerRect.top + parentRect.height / 2;
         
-        // For detail nodes, position them close to their parent
+        // For detail nodes, position them to the right of their parent
         if (level === 'detail') {
           return {
-            x: parentX + 50,
-            y: parentY - 50
+            x: parentX + 170,
+            y: parentY
           };
         }
         
@@ -1102,19 +1207,20 @@
         let radius;
         switch(level) {
           case 'category': radius = Math.min(containerRect.width, containerRect.height) * 0.25; break;
-          case 'subcategory': radius = Math.min(containerRect.width, containerRect.height) * 0.35; break;
-          case 'item': radius = Math.min(containerRect.width, containerRect.height) * 0.42; break;
-          default: radius = Math.min(containerRect.width, containerRect.height) * 0.3;
+          case 'subcategory': radius = Math.min(containerRect.width, containerRect.height) * 0.22; break;
+          case 'item': radius = Math.min(containerRect.width, containerRect.height) * 0.30; break;
+          default: radius = Math.min(containerRect.width, containerRect.height) * 0.25;
         }
         
         // Calculate angle based on index and total
+        const angleStart = -Math.PI / 2; // Start from the top
         const angleStep = (2 * Math.PI) / total;
-        const angle = angleStep * index;
+        const angle = angleStart + (angleStep * index);
         
         // Position nodes in a circle around their parent
-        // Add some randomization to make it look more organic
-        const randRadius = radius * (0.9 + Math.random() * 0.2);
-        const randAngle = angle + (Math.random() * 0.2 - 0.1);
+        // Add slight randomization to make it look more organic
+        const randRadius = radius * (0.95 + Math.random() * 0.1);
+        const randAngle = angle + (Math.random() * 0.1 - 0.05);
         
         const x = centerX + randRadius * Math.cos(randAngle);
         const y = centerY + randRadius * Math.sin(randAngle);
@@ -1155,6 +1261,7 @@
       function createNode(data, parentNode) {
         const node = document.createElement('div');
         node.className = `web-node ${data.type}`;
+        node.dataset.name = data.name;
         
         // Create inner content
         const nodeContent = document.createElement('div');
@@ -1177,18 +1284,20 @@
         
         // For detail nodes, add specific detail content
         if (data.detail) {
-          node.innerHTML = '';
-          node.className = 'web-node detail';
+          node.classList.add('detail-node');
+          
+          const detailDiv = document.createElement('div');
+          detailDiv.className = 'detail-content-wrapper';
           
           const detailTitle = document.createElement('div');
           detailTitle.className = 'detail-title';
           detailTitle.textContent = data.detail.title;
-          node.appendChild(detailTitle);
+          detailDiv.appendChild(detailTitle);
           
           const detailContent = document.createElement('div');
           detailContent.className = 'detail-content';
           detailContent.textContent = data.detail.content;
-          node.appendChild(detailContent);
+          detailDiv.appendChild(detailContent);
           
           if (data.detail.link) {
             const link = document.createElement('a');
@@ -1198,235 +1307,225 @@
             if (data.detail.link.url.startsWith('http')) {
               link.target = '_blank';
             }
-            node.appendChild(link);
+            detailDiv.appendChild(link);
           }
           
-          // Add back button
-          const backButton = document.createElement('div');
-          backButton.className = 'back-button';
-          backButton.innerHTML = '×';
-          backButton.addEventListener('click', function(e) {
+          node.appendChild(detailDiv);
+          
+          // Add close button for detail content
+          const closeButton = document.createElement('div');
+          closeButton.className = 'back-button';
+          closeButton.innerHTML = '×';
+          closeButton.addEventListener('click', function(e) {
             e.stopPropagation();
-            hideNode(node);
+            // Just hide the detail node, don't remove it
+            node.classList.remove('visible');
+            const lines = document.querySelectorAll(`.web-line[data-for="${data.name}"]`);
+            lines.forEach(line => line.classList.remove('visible'));
           });
-          node.appendChild(backButton);
+          node.appendChild(closeButton);
         }
         
         container.appendChild(node);
         
-        // Add click event to expand/collapse children
-        node.addEventListener('click', function() {
-          if (data.children) {
-            if (isExpanded(data.name)) {
-              // Collapse this node's children
-              collapseNode(node, data);
-            } else {
-              // Expand this node's children
-              expandNode(node, data);
-            }
-          } else if (data.detail && !node.classList.contains('detail')) {
-            // Show detail node
+        // Add click event to handle node interactions
+        node.addEventListener('click', function(e) {
+          // Prevent event propagation
+          e.stopPropagation();
+          
+          if (data.type === 'category') {
+            // If it's a category node, move it to center and show its children
+            moveToCenter(node, data);
+          } else if (data.children) {
+            // For other nodes with children, expand to show children
+            expandNode(node, data);
+          } else if (data.detail && !node.classList.contains('detail-node')) {
+            // Show detail for nodes with detail property
             showDetailNode(data, node);
+          } else if (node.classList.contains('detail-node')) {
+            // Toggle visibility of detail nodes
+            node.classList.toggle('visible');
           }
         });
         
         return node;
       }
       
-      // Check if node is already expanded
-      function isExpanded(nodeName) {
-        return activeNodes.some(node => {
-          return node.querySelector('.node-contents span:last-child')?.textContent === nodeName &&
-                 node.nextElementSibling &&
-                 node.nextElementSibling.classList.contains('visible');
+      // Move a category node to the center
+      function moveToCenter(node, data) {
+        const oldCenter = currentCenterNode;
+        currentCenterNode = node;
+        
+        // Get all currently visible category nodes except this one
+        const categoryNodes = Array.from(document.querySelectorAll('.web-node.category.visible')).filter(n => n !== node);
+        
+        // Hide other category nodes and their children
+        categoryNodes.forEach(catNode => {
+          const catName = catNode.dataset.name;
+          
+          // Find all nodes that are children of this category
+          const childNodes = activeNodes.filter(n => {
+            return n.classList.contains('subcategory') || n.classList.contains('item') || 
+                   (n.classList.contains('detail-node') && !n.classList.contains('root'));
+          });
+          
+          // Hide these nodes
+          childNodes.forEach(childNode => {
+            childNode.classList.remove('visible');
+          });
+          
+          // Hide this category node
+          catNode.classList.remove('visible');
+          
+          // Hide all lines connecting to this node and its children
+          const lines = document.querySelectorAll('.web-line.visible');
+          lines.forEach(line => {
+            line.classList.remove('visible');
+          });
         });
+        
+        // Animate this node to center
+        const containerRect = container.getBoundingClientRect();
+        const centerX = containerRect.width / 2;
+        const centerY = containerRect.height / 2;
+        
+        // Calculate the new position (center minus half the node width/height)
+        const newX = centerX - (node.offsetWidth / 2);
+        const newY = centerY - (node.offsetHeight / 2);
+        
+        // Apply the animation
+        node.style.transition = 'left 0.5s ease, top 0.5s ease';
+        node.style.left = `${newX}px`;
+        node.style.top = `${newY}px`;
+        
+        // Show its children after the transition
+        setTimeout(() => {
+          expandNode(node, data);
+        }, 600);
       }
       
       // Show detail node for an item
       function showDetailNode(data, parentNode) {
-        // Create a detail node as a child of the clicked node
-        const detailNode = document.createElement('div');
-        detailNode.className = 'web-node detail';
+        // Check if detail node already exists
+        let detailNode = document.querySelector(`.detail-node[data-name="${data.name}"]`);
         
-        // Add title
-        const detailTitle = document.createElement('div');
-        detailTitle.className = 'detail-title';
-        detailTitle.textContent = data.detail.title;
-        detailNode.appendChild(detailTitle);
-        
-        // Add content
-        const detailContent = document.createElement('div');
-        detailContent.className = 'detail-content';
-        detailContent.textContent = data.detail.content;
-        detailNode.appendChild(detailContent);
-        
-        // Add link if available
-        if (data.detail.link) {
-          const link = document.createElement('a');
-          link.className = 'web-link';
-          link.href = data.detail.link.url;
-          link.textContent = data.detail.link.text;
-          if (data.detail.link.url.startsWith('http')) {
-            link.target = '_blank';
+        if (!detailNode) {
+          // Create a detail node
+          detailNode = document.createElement('div');
+          detailNode.className = 'web-node detail-node';
+          detailNode.dataset.name = data.name;
+          
+          // Add content
+          const detailContent = document.createElement('div');
+          detailContent.className = 'detail-content-wrapper';
+          
+          const detailTitle = document.createElement('div');
+          detailTitle.className = 'detail-title';
+          detailTitle.textContent = data.detail.title;
+          detailContent.appendChild(detailTitle);
+          
+          const contentText = document.createElement('div');
+          contentText.className = 'detail-content';
+          contentText.textContent = data.detail.content;
+          detailContent.appendChild(contentText);
+          
+          if (data.detail.link) {
+            const link = document.createElement('a');
+            link.className = 'web-link';
+            link.href = data.detail.link.url;
+            link.textContent = data.detail.link.text;
+            if (data.detail.link.url.startsWith('http')) {
+              link.target = '_blank';
+            }
+            detailContent.appendChild(link);
           }
-          detailNode.appendChild(link);
+          
+          detailNode.appendChild(detailContent);
+          
+          // Add close button
+          const closeButton = document.createElement('div');
+          closeButton.className = 'back-button';
+          closeButton.innerHTML = '×';
+          closeButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            detailNode.classList.remove('visible');
+            
+            // Hide the connecting line
+            const lines = document.querySelectorAll(`.web-line[data-for="${data.name}"]`);
+            lines.forEach(line => line.classList.remove('visible'));
+          });
+          detailNode.appendChild(closeButton);
+          
+          // Position the detail node
+          const position = calculatePosition(0, 1, parentNode, 'detail');
+          detailNode.style.left = `${position.x - 120}px`;
+          detailNode.style.top = `${position.y - 120}px`;
+          
+          container.appendChild(detailNode);
+          activeNodes.push(detailNode);
         }
         
-        // Add back button
-        const backButton = document.createElement('div');
-        backButton.className = 'back-button';
-        backButton.innerHTML = '×';
-        backButton.addEventListener('click', function(e) {
-          e.stopPropagation();
-          hideNode(detailNode);
-        });
-        detailNode.appendChild(backButton);
-        
-        // Position the detail node
-        const position = calculatePosition(0, 1, parentNode, 'detail');
-        detailNode.style.left = `${position.x - 120}px`;
-        detailNode.style.top = `${position.y - 120}px`;
-        
-        container.appendChild(detailNode);
-        
-        // Create connecting line
-        const line = createLine(parentNode, detailNode);
-        activeLines.push(line);
-        
-        // Add to active nodes
-        activeNodes.push(detailNode);
+        // Create connecting line if it doesn't exist
+        let line = document.querySelector(`.web-line[data-for="${data.name}"]`);
+        if (!line) {
+          line = createLine(parentNode, detailNode);
+          line.dataset.for = data.name;
+          activeLines.push(line);
+        }
         
         // Make visible with animation
-        setTimeout(() => {
-          detailNode.classList.add('visible');
-          line.classList.add('visible');
-        }, 50);
+        detailNode.classList.add('visible');
+        line.classList.add('visible');
       }
       
       // Expand a node to show its children
       function expandNode(node, data) {
         if (!data.children || data.children.length === 0) return;
         
-        // Create child nodes
-        const childNodes = [];
-        data.children.forEach((childData, index) => {
-          const childNode = createNode(childData, node);
-          const position = calculatePosition(index, data.children.length, node, childData.type);
-          
-          childNode.style.left = `${position.x - childNode.offsetWidth / 2}px`;
-          childNode.style.top = `${position.y - childNode.offsetHeight / 2}px`;
-          
-          childNodes.push(childNode);
-          activeNodes.push(childNode);
-          
-          // Create connecting line
-          const line = createLine(node, childNode);
-          activeLines.push(line);
-          
-          // Make nodes and lines visible with staggered animation
-          setTimeout(() => {
-            childNode.classList.add('visible');
-            line.classList.add('visible');
-          }, 50 + index * 100);
-        });
-      }
-      
-      // Collapse a node's children
-      function collapseNode(node) {
-        const nodeName = node.querySelector('.node-contents span:last-child')?.textContent;
+        // Create child nodes if they don't exist
+        const existingChildren = document.querySelectorAll(`.web-node[data-parent="${data.name}"]`);
         
-        // Find and hide all direct children of this node
-        const childNodes = activeNodes.filter(activeNode => {
-          // Skip if this is the node itself
-          if (activeNode === node) return false;
-          
-          // Check if there's a line connecting this node to the child
-          const hasConnection = activeLines.some(line => {
-            const fromRect = node.getBoundingClientRect();
-            const lineRect = line.getBoundingClientRect();
+        if (existingChildren.length === 0) {
+          // Create new child nodes
+          const childNodes = [];
+          data.children.forEach((childData, index) => {
+            const childNode = createNode(childData, node);
+            childNode.dataset.parent = data.name;
             
-            // Simple check if line starts near this node
-            return Math.abs(lineRect.left - (fromRect.left + fromRect.width / 2)) < 5 &&
-                   Math.abs(lineRect.top - (fromRect.top + fromRect.height / 2)) < 5;
-          });
-          
-          return hasConnection;
-        });
-        
-        // Hide all children
-        childNodes.forEach(childNode => {
-          hideNode(childNode);
-        });
-      }
-      
-      // Hide a node and its connecting line
-      function hideNode(node) {
-        // Remove visible class to animate out
-        node.classList.remove('visible');
-        
-        // Find and hide any lines connected to this node
-        const connectedLines = activeLines.filter(line => {
-          const nodeRect = node.getBoundingClientRect();
-          const lineRect = line.getBoundingClientRect();
-          
-          // Check if line starts or ends near this node
-          return (Math.abs(lineRect.left - (nodeRect.left + nodeRect.width / 2)) < 10 &&
-                 Math.abs(lineRect.top - (nodeRect.top + nodeRect.height / 2)) < 10) ||
-                 (Math.abs(lineRect.left + lineRect.width - (nodeRect.left + nodeRect.width / 2)) < 10 &&
-                 Math.abs(lineRect.top + lineRect.height - (nodeRect.top + nodeRect.height / 2)) < 10);
-        });
-        
-        connectedLines.forEach(line => {
-          line.classList.remove('visible');
-        });
-        
-        // Remove from DOM after animation completes
-        setTimeout(() => {
-          // Find and remove any children of this node
-          const childNodes = activeNodes.filter(activeNode => {
-            // Skip if this is the node itself
-            if (activeNode === node) return false;
+            const position = calculatePosition(index, data.children.length, node, childData.type);
+            childNode.style.left = `${position.x - childNode.offsetWidth / 2}px`;
+            childNode.style.top = `${position.y - childNode.offsetHeight / 2}px`;
             
-            // Check if there's a line connecting this node to the child
-            const hasConnection = connectedLines.some(line => {
-              const nodeRect = node.getBoundingClientRect();
-              const lineRect = line.getBoundingClientRect();
-              
-              // Simple check if line starts near this node
-              return Math.abs(lineRect.left - (nodeRect.left + nodeRect.width / 2)) < 5 &&
-                     Math.abs(lineRect.top - (nodeRect.top + nodeRect.height / 2)) < 5;
-            });
+            childNodes.push(childNode);
+            activeNodes.push(childNode);
             
-            return hasConnection;
+            // Create connecting line
+            const line = createLine(node, childNode);
+            line.dataset.parent = data.name;
+            activeLines.push(line);
+            
+            // Make nodes and lines visible with staggered animation
+            setTimeout(() => {
+              childNode.classList.add('visible');
+              line.classList.add('visible');
+            }, 100 + index * 120);
           });
-          
-          // Recursively hide children
-          childNodes.forEach(childNode => {
-            hideNode(childNode);
+        } else {
+          // Show existing child nodes
+          existingChildren.forEach((childNode, index) => {
+            if (childNode.classList.contains('visible')) return;
+            
+            // Find connecting line
+            const line = document.querySelector(`.web-line[data-parent="${data.name}"]`);
+            
+            // Make nodes and lines visible with staggered animation
+            setTimeout(() => {
+              childNode.classList.add('visible');
+              if (line) line.classList.add('visible');
+            }, 100 + index * 120);
           });
-          
-          // Remove this node and its lines
-          if (node.parentNode) {
-            node.parentNode.removeChild(node);
-          }
-          
-          connectedLines.forEach(line => {
-            if (line.parentNode) {
-              line.parentNode.removeChild(line);
-            }
-          });
-          
-          // Update active nodes and lines
-          activeNodes = activeNodes.filter(n => n !== node);
-          activeLines = activeLines.filter(l => !connectedLines.includes(l));
-        }, 500);
+        }
       }
-      
-      // Initialize web on load
-      initWeb();
-      
-      // Reset button event
-      resetButton.addEventListener('click', resetWeb);
       
       // Handle window resize
       let resizeTimeout;
@@ -1434,6 +1533,12 @@
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(resetWeb, 250);
       });
+      
+      // Initialize web on load
+      initWeb();
+      
+      // Reset button event
+      resetButton.addEventListener('click', resetWeb);
     })();
   </script>
 </body>
