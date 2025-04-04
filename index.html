@@ -180,6 +180,43 @@
       color: var(--secondary-color);
     }
     
+    /* Enhanced interest links */
+    .enhanced-link {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: var(--light-gray);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      transition: transform 0.2s, background-color 0.2s;
+      margin-right: 6px;
+    }
+    
+    .enhanced-link:hover {
+      transform: translateY(-2px);
+      background-color: #e8eaff;
+    }
+    
+    /* Subtle link style */
+    .subtle-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted #999;
+      transition: border-bottom 0.2s;
+    }
+    
+    .subtle-link:hover {
+      border-bottom: 1px solid #666;
+    }
+    
+    /* Highlighted company names */
+    .company-highlight {
+      background-color: rgba(75, 107, 251, 0.15);
+      padding: 0 3px;
+      border-radius: 3px;
+    }
+    
     @media (max-width: 768px) {
       .profile-container {
         flex-direction: column;
@@ -229,7 +266,7 @@
     <div class="profile-content">
       <h1>Hi, I'm Hannah👋</h1>
       <p>
-        I'm a student at Columbia University interested in artificial intelligence, finance, and entrepreneurship. I'm originally from Lawrence, Kansas.
+        I'm a student at Columbia University interested in AI, finance, and entrepreneurship. I'm originally from Lawrence, Kansas.
       </p>
       <div class="social-links">
         <a href="https://linkedin.com/in/hannahstone1" class="icon-link" target="_blank" aria-label="LinkedIn">
@@ -251,7 +288,7 @@
     <ul>
       <li>Elected as 1 of 33 Key Club Governors globally to lead 200,000+ student volunteers across 50 states and 45+ countries</li>
       <li>Spoke in front of a live audience of 65,000+ and a broadcast audience in the millions</li>
-      <li>Advocated for 10,000+ students in Board of Education budget cut negotiations</li>
+      <li>Advocated for 10,000+ students in Board of Education <a href="https://lawrencekstimes.com/2023/01/11/usd497-futurescomm-20230111/" class="subtle-link">budget cut negotiations</a></li>
       <li>Designed for a $2.29M U.S. Department of Education grant initiative      </li>
     </ul>
   </section>
@@ -259,18 +296,18 @@
   <section id="places">
     <h2>Where I've Worked...</h2>
     <ul>
-      <li>AlixPartners as a Data Specialist (current)</li>
-      <li>Women's World Banking as a Development Intern</li>
-      <li>Junzi Kitchen & Dinosaur Bar-B-Que as a Consultant</li>
+      <li><span class="company-highlight">AlixPartners</span> as a Data Specialist (current)</li>
+      <li><span class="company-highlight">Women's World Banking</span> as a Development Intern</li>
+      <li><span class="company-highlight">Junzi Kitchen</span> & <span class="company-highlight">Dinosaur Bar-B-Que</span> as a Consultant</li>
     </ul>
   </section>
   
   <section id="enjoy">
     <h2>I Enjoy...</h2>
     <ul>
-      <li><a href="https://books.hannahstone.org" class="interest-link" target="_blank">📚 Reading</a></li>
-      <li><a href="travel.html" class="interest-link">✈️ Traveling</a></li>
-      <li><a href="film.html" class="interest-link">🎬 Film</a></li>
+      <li><a href="https://books.hannahstone.org" class="enhanced-link" target="_blank">📚 Reading</a></li>
+      <li><a href="film.html" class="enhanced-link">🎬 Film</a></li>
+      <li>✈️ Traveling</li>
       <li>🏌️‍♀️ Golf</li>
       <li>🎿 Skiing</li>
       <li>🍴 Trying new restaurants</li>
