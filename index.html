@@ -474,13 +474,21 @@
       transition: width 0.1s ease;
     }
     
-    /* New web diagram styles */
+    /* Web diagram styles */
     .web-container {
       position: relative;
       width: 100%;
-      height: 600px;
-      margin: 2rem auto;
-      overflow: hidden;
+      height: 500px;
+      margin: 1rem auto;
+      overflow: visible;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .web-container.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .web-node {
@@ -624,8 +632,8 @@
     }
     
     .web-node-icon {
-      font-size: 1.6rem;
-      margin-bottom: 5px;
+      font-size: 2rem;
+      margin: 0;
     }
     
     .node-contents {
@@ -635,6 +643,10 @@
       justify-content: center;
       height: 100%;
       width: 100%;
+    }
+    
+    .node-contents .web-node-name {
+      display: none;
     }
     
     .back-button {
@@ -948,7 +960,17 @@
                 icon: "☕",
                 detail: {
                   title: "Favorite Cafes",
-                  content: "I love spending mornings at cozy cafes with great ambiance. My favorites include Blue Bottle in NYC, The Mill in San Francisco, and local spots like Daylight Coffee in Lawrence. I always try the specialty drinks and pastries.",
+                  content: "I love spending mornings at cozy cafes with great ambiance. My favorites include Blue Bottle in NYC, The Mill in San Francisco, and local spots like Daylight Coffee in Lawrence.",
+                  link: null
+                }
+              },
+              {
+                name: "Coffee Order",
+                type: "subcategory",
+                icon: "☕",
+                detail: {
+                  title: "Favorite Coffee Order",
+                  content: "My go-to coffee order is an oat milk cappuccino with an extra shot. When I'm feeling adventurous, I try specialty drinks with unique flavor combinations.",
                   link: null
                 }
               },
@@ -958,7 +980,34 @@
                 icon: "🍴",
                 detail: {
                   title: "Favorite Restaurants",
-                  content: "I'm always on the hunt for hidden culinary gems. My current top picks include Japanese izakayas, Mediterranean mezze spots, and authentic Mexican taquerias. I keep a food journal to document memorable dishes from my travels.",
+                  content: "I'm always on the hunt for hidden culinary gems. My current top picks include Japanese izakayas, Mediterranean mezze spots, and authentic Mexican taquerias.",
+                  link: null
+                }
+              }
+            ]
+          },
+          {
+            name: "Being Active",
+            type: "category",
+            icon: "🏃",
+            children: [
+              {
+                name: "Golf",
+                type: "subcategory",
+                icon: "🏌️‍♀️",
+                detail: {
+                  title: "Most Played Course",
+                  content: "I've played most frequently at Lawrence Country Club, but my favorite course is Pebble Beach. I enjoy the mental challenge golf provides as a perfect blend of technical skill, strategy, and outdoor appreciation.",
+                  link: null
+                }
+              },
+              {
+                name: "Skiing",
+                type: "subcategory",
+                icon: "🎿",
+                detail: {
+                  title: "Most Skied Mountain",
+                  content: "I've skied most often at Breckenridge, my favorite mountain in Colorado. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs. The combination of adrenaline and scenery keeps me coming back.",
                   link: null
                 }
               }
@@ -988,11 +1037,21 @@
                 icon: "🍿",
                 detail: {
                   title: "Favorite Films",
-                  content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.' I enjoy films that combine emotional depth with visual creativity.",
+                  content: "Some of my all-time favorites include 'It's a Wonderful Life,' 'The Lord of the Rings: The Two Towers,' 'Memento,' and 'The Devil Wears Prada.'",
                   link: {
                     text: "See my film page",
                     url: "film.html"
                   }
+                }
+              },
+              {
+                name: "Television",
+                type: "subcategory",
+                icon: "📺",
+                detail: {
+                  title: "Favorite Television Shows",
+                  content: "My favorite shows include 'Succession', 'The Office', and 'Breaking Bad'. I appreciate series with strong character development and compelling storylines.",
+                  link: null
                 }
               }
             ]
@@ -1003,25 +1062,12 @@
             icon: "📚",
             children: [
               {
-                name: "Fiction",
+                name: "Reading List",
                 type: "subcategory",
-                icon: "📕",
+                icon: "📖",
                 detail: {
-                  title: "Fiction Books",
-                  content: "I love literary fiction that challenges perspectives and introduces new worlds. Some of my favorite authors include Kazuo Ishiguro, Donna Tartt, and Gabriel García Márquez. Historical fiction and magical realism are genres I particularly enjoy.",
-                  link: {
-                    text: "View my reading list",
-                    url: "https://books.hannahstone.org"
-                  }
-                }
-              },
-              {
-                name: "Non-Fiction",
-                type: "subcategory",
-                icon: "📗",
-                detail: {
-                  title: "Non-Fiction Books",
-                  content: "I read extensively on business strategy, economics, and psychology to expand my knowledge. Recently I've been exploring works on behavioral economics, decision-making science, and the psychology of happiness.",
+                  title: "Reading Website",
+                  content: "I keep track of all my reading on my dedicated books website. It includes my current reads, favorites, and reading goals for the year.",
                   link: {
                     text: "View my reading list",
                     url: "https://books.hannahstone.org"
@@ -1033,63 +1079,19 @@
           {
             name: "Traveling",
             type: "category",
-            icon: "✈️",
+            icon: "🌍",
             children: [
               {
-                name: "Cities",
+                name: "Countries",
                 type: "subcategory",
-                icon: "🏙️",
+                icon: "🗺️",
                 detail: {
-                  title: "Urban Exploration",
-                  content: "I love exploring cities and their unique cultures, architecture, and cuisines. Tokyo, Barcelona, and Istanbul are among my favorite urban destinations. I enjoy getting lost in neighborhoods away from tourist centers to discover local gems.",
-                  link: null
-                }
-              },
-              {
-                name: "Nature",
-                type: "subcategory",
-                icon: "🏞️",
-                detail: {
-                  title: "Nature Destinations",
-                  content: "From Norwegian fjords to New Zealand landscapes, I'm drawn to breathtaking natural settings. Hiking and photography are my favorite activities in these locations. My bucket list includes Patagonia and the national parks of Utah.",
-                  link: null
-                }
-              }
-            ]
-          },
-          {
-            name: "Being Outdoors",
-            type: "category",
-            icon: "🌲",
-            children: [
-              {
-                name: "Golf",
-                type: "subcategory",
-                icon: "🏌️‍♀️",
-                detail: {
-                  title: "Golf",
-                  content: "I currently play at a 14 handicap and enjoy the mental challenge golf provides. It's a perfect blend of technical skill, strategy, and outdoor appreciation. My favorite courses include Pebble Beach and local hidden gems.",
-                  link: null
-                }
-              },
-              {
-                name: "Skiing",
-                type: "subcategory",
-                icon: "🎿",
-                detail: {
-                  title: "Skiing",
-                  content: "My favorite skiing destinations include Breckenridge and Park City. I enjoy both groomed trails and powder days, and I'm comfortable on black diamond runs. The combination of adrenaline, scenery, and après-ski culture keeps me coming back.",
-                  link: null
-                }
-              },
-              {
-                name: "Hiking",
-                type: "subcategory",
-                icon: "🥾",
-                detail: {
-                  title: "Hiking Adventures",
-                  content: "I try to take on at least one major hiking trip annually. Recent favorites include sections of the Appalachian Trail and coastal paths in Oregon. I find hiking to be both meditative and invigorating - a perfect escape from digital life.",
-                  link: null
+                  title: "Countries I've Visited",
+                  content: "I've been fortunate to travel to 15+ countries across Europe, Asia, and North America. Some of my favorites include Japan, Turkey, Italy, and New Zealand.",
+                  link: {
+                    text: "See my travel map",
+                    url: "travel.html"
+                  }
                 }
               }
             ]
@@ -1191,6 +1193,7 @@
         
         // Add node name
         const nameSpan = document.createElement('span');
+        nameSpan.className = 'web-node-name';
         nameSpan.textContent = data.name;
         nodeContent.appendChild(nameSpan);
         
@@ -1289,6 +1292,30 @@
             categoryNode.classList.add('visible');
           }, 150 + index * 100);
         });
+      }
+      
+      // Handle scroll-based visibility
+      function handleScroll() {
+        const webSection = document.getElementById('enjoy');
+        const webContainer = document.querySelector('.web-container');
+        const rect = webSection.getBoundingClientRect();
+        
+        // Check if the section is in the viewport
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+          webContainer.classList.add('visible');
+        } else {
+          webContainer.classList.remove('visible');
+          
+          // Optional: Also hide all nodes when scrolled away
+          document.querySelectorAll('.web-node.visible').forEach(node => {
+            node.classList.remove('visible');
+          });
+          
+          // Reset the web when we scroll back
+          if (rect.top > 0) {
+            resetWeb();
+          }
+        }
       }
       
       // Zoom in to a category
@@ -1426,16 +1453,6 @@
             subcatNode.style.left = `${position.x - subcatNode.offsetWidth / 2}px`;
             subcatNode.style.top = `${position.y - subcatNode.offsetHeight / 2}px`;
             
-            // For subcategories, show only the emoji
-            if (subcatData.icon) {
-              const nameSpan = subcatNode.querySelector('span:not(.web-node-icon)');
-              if (nameSpan) nameSpan.style.display = 'none';
-              
-              // Make the icon larger
-              const iconSpan = subcatNode.querySelector('.web-node-icon');
-              if (iconSpan) iconSpan.style.fontSize = '2rem';
-            }
-            
             activeNodes.push(subcatNode);
           }
           
@@ -1518,11 +1535,17 @@
         resizeTimeout = setTimeout(resetWeb, 250);
       });
       
-      // Initialize web on load
-      initWeb();
-      
-      // Reset button event
-      resetButton.addEventListener('click', resetWeb);
+      // Initialize web on load and handle scrolling
+      window.addEventListener('load', function() {
+        initWeb();
+        handleScroll(); // Initial check
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Reset button event
+        resetButton.addEventListener('click', resetWeb);
+      });
     })();
   </script>
 </body>
