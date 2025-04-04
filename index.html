@@ -339,6 +339,129 @@
       transform: translateX(-50%) scale(1);
     }
     
+    /* New card grid layout for interests */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 2rem;
+    }
+    
+    .interest-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+      height: 180px; /* Fixed initial height */
+    }
+    
+    .interest-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .interest-card.expanded {
+      grid-column: 1 / -1; /* Span all columns when expanded */
+      height: auto;
+      max-height: 500px;
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .card-category {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      background-color: var(--accent-color);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+    
+    .card-content {
+      position: relative;
+      padding: 20px;
+      z-index: 2;
+    }
+    
+    .card-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.8);
+      z-index: 1;
+    }
+    
+    .card-title {
+      position: relative;
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      margin-top: 60px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+    
+    .card-description {
+      position: relative;
+      color: white;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      display: none; /* Hidden by default */
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+    
+    .card-link {
+      position: relative;
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: white;
+      color: var(--accent-color);
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    
+    .interest-card.expanded .card-description {
+      display: block;
+      animation: fadeIn 0.5s forwards;
+    }
+    
+    .interest-card.expanded .card-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 100%);
+      z-index: 1;
+    }
+    
     /* Scroll indicator */
     .scroll-indicator {
       position: fixed;
@@ -411,8 +534,16 @@
         max-width: 100%;
       }
       
-      .enjoyment-pills {
-        justify-content: center;
+      .interests-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .interest-card {
+        height: 150px;
+      }
+      
+      .card-title {
+        margin-top: 40px;
       }
     }
   </style>
@@ -483,45 +614,85 @@
   
   <section id="enjoy">
     <h2>I Enjoy...</h2>
-    <div class="enjoyment-pills">
-      <a href="https://books.hannahstone.org" class="pill-link" target="_blank">
-        <div class="pill">
-          <span class="pill-icon">📚</span>
-          <span>Reading</span>
-          <span class="pill-tooltip">Explore my reading list</span>
+    <div class="interests-grid">
+      <!-- Reading Card -->
+      <div class="interest-card" data-category="BOOKS">
+        <div class="card-category">Books</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Reading</h3>
+          <p class="card-description">
+            I love diving into books that expand my horizons. My reading habits span from business strategy and economics to literary fiction and philosophy. I maintain a detailed reading list where I track and review everything I read.
+          </p>
+          <a href="https://books.hannahstone.org" class="card-link" target="_blank">View My Reading List</a>
         </div>
-      </a>
+      </div>
       
-      <a href="film.html" class="pill-link">
-        <div class="pill">
-          <span class="pill-icon">🎬</span>
-          <span>Film</span>
-          <span class="pill-tooltip">See my favorite movies</span>
+      <!-- Film Card -->
+      <div class="interest-card" data-category="FILM">
+        <div class="card-category">Film</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Film</h3>
+          <p class="card-description">
+            Cinema is one of my greatest passions. I particularly enjoy works by directors like Alfred Hitchcock, Emerald Fennel, and Park Chan-wook. Some of my favorites include "It's a Wonderful Life," "The Lord of the Rings," and "Memento."
+          </p>
+          <a href="film.html" class="card-link">Explore My Film Tastes</a>
         </div>
-      </a>
-      
-      <div class="pill">
-        <span class="pill-icon">✈️</span>
-        <span>Traveling</span>
-        <span class="pill-tooltip">I've visited 15+ countries</span>
       </div>
       
-      <div class="pill">
-        <span class="pill-icon">🏌️‍♀️</span>
-        <span>Golf</span>
-        <span class="pill-tooltip">14 handicap</span>
+      <!-- Travel Card -->
+      <div class="interest-card" data-category="TRAVEL">
+        <div class="card-category">Travel</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Traveling</h3>
+          <p class="card-description">
+            I've visited over 15 countries across multiple continents. Each trip teaches me something new about culture, history, and myself. I enjoy both urban exploration and wilderness adventures, from bustling Tokyo streets to the serene Norwegian fjords.
+          </p>
+        </div>
       </div>
       
-      <div class="pill">
-        <span class="pill-icon">🎿</span>
-        <span>Skiing</span>
-        <span class="pill-tooltip">Favorite spots: Breckenridge, Park City</span>
+      <!-- Golf Card -->
+      <div class="interest-card" data-category="SPORTS">
+        <div class="card-category">Sports</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Golf</h3>
+          <p class="card-description">
+            Golf challenges me both mentally and physically. I currently play at a 14 handicap and enjoy the combination of technical skill, strategy, and outdoor appreciation the sport offers. It's also a great way to connect with people in a relaxed setting.
+          </p>
+        </div>
       </div>
       
-      <div class="pill">
-        <span class="pill-icon">🍴</span>
-        <span>Trying new restaurants</span>
-        <span class="pill-tooltip">I keep a food journal</span>
+      <!-- Skiing Card -->
+      <div class="interest-card" data-category="SPORTS">
+        <div class="card-category">Sports</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Skiing</h3>
+          <p class="card-description">
+            There's nothing like the freedom of gliding down a mountain. My favorite skiing destinations include Breckenridge and Park City, but I'm always looking to explore new slopes. I'm comfortable on black diamond runs and enjoy both groomed trails and powder days.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Food Card -->
+      <div class="interest-card" data-category="FOOD">
+        <div class="card-category">Food</div>
+        <div class="card-overlay"></div>
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1000');"></div>
+        <div class="card-content">
+          <h3 class="card-title">Trying new restaurants</h3>
+          <p class="card-description">
+            I'm always on the hunt for unique culinary experiences. I keep a food journal documenting my favorite dishes and restaurants from around the world. I especially enjoy exploring authentic local cuisines and finding hidden gems off the beaten path.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -545,6 +716,34 @@
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       document.querySelector('.scroll-indicator').style.width = scrolled + '%';
+    });
+    
+    // Expandable interest cards
+    document.querySelectorAll('.interest-card').forEach(card => {
+      card.addEventListener('click', function() {
+        // If already expanded, collapse it
+        if (this.classList.contains('expanded')) {
+          this.classList.remove('expanded');
+          return;
+        }
+        
+        // Collapse any expanded cards first
+        document.querySelectorAll('.interest-card.expanded').forEach(expandedCard => {
+          expandedCard.classList.remove('expanded');
+        });
+        
+        // Expand this card
+        this.classList.add('expanded');
+        
+        // Scroll to the card if it's not fully visible
+        const rect = this.getBoundingClientRect();
+        if (rect.bottom > window.innerHeight) {
+          window.scrollTo({
+            top: window.scrollY + rect.top - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
     });
   </script>
 </body>
