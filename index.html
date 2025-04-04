@@ -1326,24 +1326,45 @@
         const newX = centerX - (node.offsetWidth / 2);
         const newY = centerY - (node.offsetHeight / 2);
         
+        // Store original color and dimensions
+        node.dataset.originalBackground = node.style.backgroundColor;
+        node.dataset.originalWidth = node.offsetWidth;
+        node.dataset.originalHeight = node.offsetHeight;
+        
         // Apply the animation with a slight zoom effect
-        node.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease';
+        node.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease, background-color 0.5s ease';
         node.style.left = `${newX}px`;
         node.style.top = `${newY}px`;
-        node.style.transform = 'scale(1.2)';
         
         // After zoom in animation completes, show children
         setTimeout(() => {
           // Change the node class to make it look like the root
           node.classList.remove('category');
           node.classList.add('root');
-          node.style.transform = 'scale(1)';
           
           // Show its subcategories
           if (data.children && data.children.length) {
             showSubcategories(data);
           }
-        }, 600);
+        }, 500);
+      }
+      
+      // Save the current state before zooming in
+      function saveCurrentState() {
+        // Get positions of all visible category nodes
+        const categoryPositions = {};
+        document.querySelectorAll('.web-node.category.visible').forEach(node => {
+          categoryPositions[node.dataset.name] = {
+            left: node.style.left,
+            top: node.style.top
+          };
+        });
+        
+        previousState = {
+          categoryPosition: categoryPositions,
+          visibleCategories: Array.from(document.querySelectorAll('.web-node.category.visible')).map(node => node.dataset.name),
+          clickedCategory: currentCenterNode.dataset.name
+        };
       }
       
       // Zoom out to the previous state
@@ -1359,9 +1380,14 @@
         });
         
         // Restore the category node to its original position
-        categoryNode.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease';
-        categoryNode.style.left = previousState.categoryPosition.left;
-        categoryNode.style.top = previousState.categoryPosition.top;
+        categoryNode.style.transition = 'left 0.5s ease, top 0.5s ease, transform 0.5s ease, background-color 0.5s ease';
+        
+        const originalPosition = previousState.categoryPosition[categoryNode.dataset.name];
+        if (originalPosition) {
+          categoryNode.style.left = originalPosition.left;
+          categoryNode.style.top = originalPosition.top;
+        }
+        
         categoryNode.style.transform = 'scale(1)';
         
         // Change it back to category class
@@ -1369,8 +1395,9 @@
           categoryNode.classList.remove('root');
           categoryNode.classList.add('category');
           
-          // Show the root node again
-          document.querySelector('.web-node.root')?.classList.add('visible');
+          // Show the original root node again
+          const rootNode = document.querySelector('.web-node[data-type="root"]');
+          if (rootNode) rootNode.classList.add('visible');
           
           // Show all category nodes again
           previousState.visibleCategories.forEach(cat => {
@@ -1379,23 +1406,9 @@
           });
           
           // Reset current center and previous state
-          currentCenterNode = document.querySelector('.web-node.root');
+          currentCenterNode = document.querySelector('.web-node[data-type="root"]');
           previousState = null;
         }, 300);
-      }
-      
-      // Save the current state before zooming in
-      function saveCurrentState() {
-        const categoryNode = currentCenterNode === document.querySelector('.web-node.category') ? 
-            currentCenterNode : null;
-            
-        previousState = {
-          categoryPosition: {
-            left: categoryNode ? categoryNode.style.left : null,
-            top: categoryNode ? categoryNode.style.top : null
-          },
-          visibleCategories: Array.from(document.querySelectorAll('.web-node.category.visible')).map(node => node.dataset.name)
-        };
       }
       
       // Show subcategories for a category
@@ -1412,6 +1425,16 @@
             const position = calculatePosition(index, categoryData.children.length);
             subcatNode.style.left = `${position.x - subcatNode.offsetWidth / 2}px`;
             subcatNode.style.top = `${position.y - subcatNode.offsetHeight / 2}px`;
+            
+            // For subcategories, show only the emoji
+            if (subcatData.icon) {
+              const nameSpan = subcatNode.querySelector('span:not(.web-node-icon)');
+              if (nameSpan) nameSpan.style.display = 'none';
+              
+              // Make the icon larger
+              const iconSpan = subcatNode.querySelector('.web-node-icon');
+              if (iconSpan) iconSpan.style.fontSize = '2rem';
+            }
             
             activeNodes.push(subcatNode);
           }
