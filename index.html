@@ -512,6 +512,28 @@
       animation: pulse 2s infinite alternate;
     }
     
+    .web-node.active {
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(75, 107, 251, 0.3);
+      z-index: 15;
+    }
+    
+    .web-node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      animation: hover-pulse 1s infinite alternate;
+    }
+    
+    @keyframes hover-pulse {
+      0% {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+      100% {
+        box-shadow: 0 8px 25px rgba(115, 165, 255, 0.4);
+      }
+    }
+    
     .connecting-line {
       position: absolute;
       height: 2px;
@@ -565,22 +587,6 @@
       100% {
         opacity: 1;
         transform: scale(1);
-      }
-    }
-    
-    .web-node:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      z-index: 20;
-      animation: hover-pulse 1s infinite alternate;
-    }
-    
-    @keyframes hover-pulse {
-      0% {
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      }
-      100% {
-        box-shadow: 0 8px 25px rgba(115, 165, 255, 0.4);
       }
     }
     
@@ -764,6 +770,51 @@
       }
     }
     
+    /* Detail panel styles - new inline version */
+    .details-panel {
+      margin-top: 20px;
+      padding: 15px 0;
+      border-top: 1px solid var(--light-gray);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.4s ease, max-height 0.4s ease;
+    }
+    
+    .details-panel.visible {
+      opacity: 1;
+      max-height: 500px;
+    }
+    
+    .details-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+    }
+    
+    .details-content {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .details-link {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: var(--light-gray);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    
+    .details-link:hover {
+      transform: translateY(-2px);
+      background-color: rgba(115, 165, 255, 0.15);
+    }
+    
     @media (max-width: 768px) {
       .profile-container {
         flex-direction: column;
@@ -942,6 +993,9 @@
     <h2>Beyond Work...</h2>
     <div class="web-container" id="interest-web">
       <!-- Web nodes will be dynamically generated -->
+    </div>
+    <div class="details-panel" id="details-panel">
+      <!-- Details will be inserted here dynamically -->
     </div>
     <div style="text-align: center;">
       <button class="reset-button" id="reset-web">Reset Web</button>
@@ -1167,12 +1221,17 @@
         // Fade out all nodes
         document.querySelectorAll('.web-node.visible').forEach(node => {
           node.classList.remove('visible');
+          node.classList.remove('active');
         });
         
         // Fade out all lines
         document.querySelectorAll('.connecting-line.visible').forEach(line => {
           line.classList.remove('visible');
         });
+        
+        // Hide details panel
+        const detailsPanel = document.getElementById('details-panel');
+        detailsPanel.classList.remove('visible');
         
         // Re-initialize after animations complete
         setTimeout(initWeb, 500);
@@ -1272,12 +1331,17 @@
           // Hide its subcategories and connecting lines
           document.querySelectorAll(`.web-node[data-parent="${categoryName}"]`).forEach(node => {
             node.classList.remove('visible');
+            node.classList.remove('active');
           });
           
           document.querySelectorAll(`.connecting-line[data-category="${categoryName}"]`).forEach(line => {
             line.classList.remove('visible');
             line.classList.remove('animating');
           });
+          
+          // Hide details panel
+          const detailsPanel = document.getElementById('details-panel');
+          detailsPanel.classList.remove('visible');
           
           // Remove from expanded categories
           expandedCategories.delete(categoryName);
@@ -1352,96 +1416,57 @@
       
       // Handle click on a category node
       function handleCategoryClick(node, data) {
+        // Remove active state from all subcategory nodes
+        document.querySelectorAll('.web-node.subcategory.active').forEach(subNode => {
+          subNode.classList.remove('active');
+        });
+        
+        // Hide details panel when clicking on any category
+        const detailsPanel = document.getElementById('details-panel');
+        detailsPanel.classList.remove('visible');
+        
         // Toggle subcategories
         toggleSubcategories(data, node);
       }
       
       // Show detail node for an item
       function showDetailNode(data, parentNode) {
-        // Check if detail node already exists
-        let detailNode = document.querySelector(`.detail-node[data-name="${data.name}"]`);
+        // Get the details panel
+        const detailsPanel = document.getElementById('details-panel');
         
-        if (!detailNode) {
-          // Create a detail node
-          detailNode = document.createElement('div');
-          detailNode.className = 'web-node detail-node';
-          detailNode.dataset.name = data.name;
-          
-          // Add content
-          const detailContent = document.createElement('div');
-          detailContent.className = 'detail-content-wrapper';
-          
-          const detailTitle = document.createElement('div');
-          detailTitle.className = 'detail-title';
-          detailTitle.textContent = data.detail.title;
-          detailContent.appendChild(detailTitle);
-          
-          const contentText = document.createElement('div');
-          contentText.className = 'detail-content';
-          contentText.textContent = data.detail.content;
-          detailContent.appendChild(contentText);
-          
-          if (data.detail.link) {
-            const link = document.createElement('a');
-            link.className = 'web-link';
-            link.href = data.detail.link.url;
-            link.textContent = data.detail.link.text;
-            if (data.detail.link.url.startsWith('http')) {
-              link.target = '_blank';
-            }
-            detailContent.appendChild(link);
+        // Clear current content
+        detailsPanel.innerHTML = '';
+        
+        // Create the detail content
+        const detailTitle = document.createElement('div');
+        detailTitle.className = 'details-title';
+        detailTitle.textContent = data.detail.title;
+        
+        const detailContent = document.createElement('div');
+        detailContent.className = 'details-content';
+        detailContent.textContent = data.detail.content;
+        
+        // Add elements to the panel
+        detailsPanel.appendChild(detailTitle);
+        detailsPanel.appendChild(detailContent);
+        
+        // Add link if available
+        if (data.detail.link) {
+          const link = document.createElement('a');
+          link.className = 'details-link';
+          link.href = data.detail.link.url;
+          link.textContent = data.detail.link.text;
+          if (data.detail.link.url.startsWith('http')) {
+            link.target = '_blank';
           }
-          
-          detailNode.appendChild(detailContent);
-          
-          // Add close button
-          const closeButton = document.createElement('div');
-          closeButton.className = 'back-button';
-          closeButton.innerHTML = '×';
-          closeButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            detailNode.classList.remove('visible');
-          });
-          detailNode.appendChild(closeButton);
-          
-          // Position the detail node (to the right of the parent)
-          const containerRect = container.getBoundingClientRect();
-          const parentRect = parentNode.getBoundingClientRect();
-          const parentX = parentRect.left - containerRect.left + parentRect.width / 2;
-          const parentY = parentRect.top - containerRect.top + parentRect.height / 2;
-          
-          // Calculate position in a way that avoids overlap with other nodes
-          // We'll position it radially outward from the parent, similar to subcategories
-          const centerX = containerRect.width / 2;
-          const centerY = containerRect.height / 2;
-          
-          // Get vector from center to parent
-          const vecX = parentX - centerX;
-          const vecY = parentY - centerY;
-          const vecLength = Math.sqrt(vecX * vecX + vecY * vecY);
-          
-          // Normalize
-          const dirX = vecLength === 0 ? 1 : vecX / vecLength;
-          const dirY = vecLength === 0 ? 0 : vecY / vecLength;
-          
-          // Position detail node in the same direction, but further out
-          const detailX = parentX + dirX * 150;
-          const detailY = parentY + dirY * 150;
-          
-          detailNode.style.left = `${detailX - 120}px`; // Center the detail node (width/2)
-          detailNode.style.top = `${detailY - 120}px`; // Center the detail node (height/2)
-          
-          container.appendChild(detailNode);
-          activeNodes.push(detailNode);
-          
-          // Create connecting line
-          const line = createConnectingLine(parentNode, detailNode, parentNode.dataset.parent || "detail");
-          line.style.opacity = '0.4'; // Make detail lines slightly more subtle
-          line.classList.add('visible', 'animating');
+          detailsPanel.appendChild(link);
         }
         
-        // Make visible with animation
-        detailNode.classList.add('visible');
+        // Show the panel with animation
+        detailsPanel.classList.add('visible');
+        
+        // Highlight the clicked node
+        parentNode.classList.add('active');
       }
       
       // Create a node element
