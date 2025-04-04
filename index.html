@@ -25,31 +25,38 @@
       color: var(--text-color);
       max-width: 900px;
       margin: 0 auto;
-      padding: 4rem 2rem; /* Added more padding top and bottom */
+      padding: 1rem 2rem 4rem;
     }
     
-    /* Header with logo */
+    /* Clean header with logo */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 0 2rem;
+      border-bottom: 1px solid var(--light-gray);
       margin-bottom: 3rem;
     }
     
-    .logo-left {
-      width: 50px;
-      height: 50px;
+    .logo {
+      height: 40px;
+      width: auto;
     }
     
-    .logo-center-container {
+    .nav-menu {
       display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
+      gap: 2rem;
     }
     
-    .logo-center {
-      width: 120px;
-      height: auto;
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color);
     }
     
     .profile-container {
@@ -186,25 +193,26 @@
         flex-direction: column;
         gap: 1rem;
       }
+      
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header with top-left logo -->
+  <!-- Simple header with logo and navigation -->
   <header class="header">
-    <div class="logo-left">
-      <!-- Replace with your actual logo or use a placeholder -->
-      <img src="images/cormer main.png" alt="Logo">
-    </div>
-    <div><!-- Empty div to push the right side content --></div>
+    <a href="/">
+      <img src="images/hannahstone-logo.png" alt="Hannah Stone" class="logo">
+    </a>
+    <nav class="nav-menu">
+      <a href="#things" class="nav-link">Things I've Done</a>
+      <a href="#places" class="nav-link">Places I've Worked</a>
+      <a href="#enjoy" class="nav-link">I Enjoy</a>
+    </nav>
   </header>
-  
-  <!-- Center logo -->
-  <div class="logo-center-container">
-    <div class="logo-center">
-      <!-- Replace with your actual center logo -->
-      <img src="images/main.png" alt="Center Logo">
-  </div>
 
   <div class="profile-container">
     <div class="profile-photo">
@@ -230,7 +238,7 @@
     </div>
   </div>
   
-  <section>
+  <section id="things">
     <h2>Things I've Done...</h2>
     <ul>
       <li>Served as Key Club Governor, elected as 1 of 33 Governors across 50 states and 45+ countries on a council to lead 200,000+ volunteers</li>
@@ -240,7 +248,7 @@
     </ul>
   </section>
   
-  <section>
+  <section id="places">
     <h2>Places I've Worked...</h2>
     <ul>
       <li>Development Intern at Women's World Banking</li>
@@ -249,7 +257,7 @@
     </ul>
   </section>
   
-  <section>
+  <section id="enjoy">
     <h2>I Enjoy:</h2>
     <ul>
       <li><a href="https://books.hannahstone.org" class="interest-link" target="_blank">📚 Reading</a></li>
