@@ -1,7 +1,13 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useBookshelf } from '@/context/BookshelfContext';
 import { Book } from '@/types/book';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 import { 
   BookCopy, 
   BookOpenCheck, 
@@ -30,6 +36,21 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+
+// Register ChartJS components
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+// Colors for the pie chart
+const chartColors = [
+  '#FF6384', // pink
+  '#36A2EB', // blue
+  '#FFCE56', // yellow
+  '#4BC0C0', // teal
+  '#9966FF', // purple
+  '#FF9F40', // orange
+  '#C9CBCF', // gray
+  '#7FD858', // green
+];
 
 const genreIconMap: Record<string, React.ReactNode> = {
   'Fiction': <BookCopy className="h-4 w-4 text-blue-500" />,
@@ -174,10 +195,10 @@ const BookshelfStats: React.FC = () => {
         <div className="flex items-center gap-4">
           <Avatar className="h-32 w-32 border-2 border-white shadow-md">
             <AvatarImage 
-              src="/lovable-uploads/47602fcc-f8fb-42c1-ab12-804de5049f44.png" 
+              src="/books/avatar.png" 
               alt="Hannah's profile" 
             />
-            <AvatarFallback>HL</AvatarFallback>
+            <AvatarFallback>HS</AvatarFallback>
           </Avatar>
           <div>
             <h1 className="text-3xl font-medium">Hannah's Library</h1>
@@ -215,20 +236,65 @@ const BookshelfStats: React.FC = () => {
           <h3 className="text-sm text-gray-500 font-medium mb-4 uppercase text-lg">Top Genres</h3>
           {topGenres.length > 0 ? (
             <div className="space-y-4">
-              {topGenres.map((item, index) => (
-                <div key={item.genre} className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
-                      index === 0 ? 'bg-yellow-100 text-yellow-600' : 
-                      'bg-gray-100 text-gray-600'
-                    }`}>
+              <div className="h-56 w-full">
+                {(() => {
+                  // Get all genres with counts for the pie chart
+                  const allGenresData = Object.entries(genreCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5); // Top 5 genres for the chart
+                    
+                  const chartData = {
+                    labels: allGenresData.map(([genre]) => genre),
+                    datasets: [
+                      {
+                        data: allGenresData.map(([_, count]) => count),
+                        backgroundColor: chartColors.slice(0, allGenresData.length),
+                        borderColor: Array(allGenresData.length).fill('#ffffff'),
+                        borderWidth: 2,
+                      },
+                    ],
+                  };
+                  
+                  const chartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        position: 'right' as const,
+                        labels: {
+                          boxWidth: 15,
+                          padding: 15,
+                          font: {
+                            size: 12,
+                          },
+                        },
+                      },
+                      tooltip: {
+                        callbacks: {
+                          label: function(context: any) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            return `${label}: ${value} books`;
+                          }
+                        }
+                      }
+                    },
+                  };
+                  
+                  return <Pie data={chartData} options={chartOptions} />;
+                })()}
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
+                {topGenres.map((item, index) => (
+                  <div key={item.genre} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center mr-1">
                       {getGenreIcon(item.genre)}
                     </div>
-                    <span className="font-medium">{item.genre}</span>
+                    <span className="text-sm">{item.genre}</span>
                   </div>
-                  <span className="text-gray-500">{item.count} books</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           ) : (
             <div className="text-gray-500 text-center py-4">

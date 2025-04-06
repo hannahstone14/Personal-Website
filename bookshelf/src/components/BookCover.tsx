@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Book } from '@/types/book';
 import { cn } from '@/lib/utils';
@@ -153,7 +152,7 @@ const BookCover: React.FC<BookCoverProps> = ({ book, showStatus }) => {
       
       {/* Reading progress */}
       {showStatus && book.status === 'reading' && (
-        <div className="absolute bottom-0 left-0 w-full bg-blue-700 text-white text-xs text-center py-1 rounded-b-md z-20">
+        <div className="absolute bottom-0 left-0 w-full bg-blue-700 text-white text-xs text-center py-1 rounded-b-md z-20 max-w-full overflow-hidden">
           {book.progress}%
         </div>
       )}

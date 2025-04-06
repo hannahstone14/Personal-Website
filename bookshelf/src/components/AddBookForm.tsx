@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -48,7 +47,7 @@ interface AddBookFormProps {
 }
 
 const AddBookForm: React.FC<AddBookFormProps> = ({ isOpen, onClose, onSuccess, bookToEdit }) => {
-  const { addBook } = useBookshelf();
+  const { addBook, editBook } = useBookshelf();
   const [showSeriesOptions, setShowSeriesOptions] = useState(bookToEdit?.isSeries || false);
   const [totalSeriesBooks, setTotalSeriesBooks] = useState<number>(0);
   const [totalSeriesPages, setTotalSeriesPages] = useState<number>(0);
@@ -171,10 +170,16 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ isOpen, onClose, onSuccess, b
         seriesPosition: data.isSeries ? data.seriesPosition : undefined,
       };
       
-      if (data.isSeries && totalSeriesBooks > 1 && totalSeriesPages > 0) {
-        await addBook(bookData, totalSeriesBooks, totalSeriesPages);
+      if (bookToEdit) {
+        // This is an edit operation - use the editBook function from context
+        await editBook(bookToEdit.id, bookData);
       } else {
-        await addBook(bookData);
+        // This is an add operation
+        if (data.isSeries && totalSeriesBooks > 1 && totalSeriesPages > 0) {
+          await addBook(bookData, totalSeriesBooks, totalSeriesPages);
+        } else {
+          await addBook(bookData);
+        }
       }
       
       form.reset();
@@ -190,7 +195,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ isOpen, onClose, onSuccess, b
       if (onClose) onClose();
       if (onSuccess) onSuccess();
     } catch (error) {
-      console.error('Error adding book:', error);
+      console.error('Error submitting book:', error);
     }
   };
 

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { Book } from '@/types/book';
 import { toast } from "sonner";
@@ -199,11 +198,20 @@ export const BookshelfProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         throw new Error(`Book with id ${id} not found`);
       }
       
-      const updatedBook = { ...currentBook, ...bookData } as Book;
+      // Create a complete updated book object with the same ID
+      const updatedBook = { 
+        ...currentBook, 
+        ...bookData,
+        id: id  // Ensure we keep the same ID
+      } as Book;
+      
+      // Update local state first for immediate UI feedback
       updateLocalState(updatedBook, isRecommendation);
       
+      // Then update on the server
       const serverUpdatedBook = await bookService.updateBook(id, bookData, isRecommendation);
       
+      // Update again with server response if needed
       updateLocalState(serverUpdatedBook, isRecommendation);
       
       toast.success('Book updated successfully!');

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Bookshelf from '@/components/Bookshelf';
 import BookshelfStats from '@/components/BookshelfStats';
@@ -33,7 +32,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header className="py-6 bg-pink-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-pink-800">This is what I read!</h1>
+          <h1 className="text-2xl font-semibold text-pink-800">Hannah's Bookshelf</h1>
         </div>
       </header>
       
@@ -54,7 +53,7 @@ const Index = () => {
       
       <footer className="py-6 border-t border-gray-200 text-center text-sm text-gray-600 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p>This is what I read!</p>
+          <p>Hannah's Bookshelf</p>
         </div>
       </footer>
     </div>

@@ -87,6 +87,14 @@ const Bookshelf: React.FC = () => {
   
   const getSortedBooks = useCallback((booksToSort: Book[]) => {
     return [...booksToSort].sort((a, b) => {
+      // Always prioritize "reading" status books to appear first
+      if (a.status === 'reading' && b.status !== 'reading') {
+        return -1;
+      }
+      if (a.status !== 'reading' && b.status === 'reading') {
+        return 1;
+      }
+      
       let comparison = 0;
       
       switch(sortBy) {
