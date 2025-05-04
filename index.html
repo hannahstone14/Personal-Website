@@ -974,6 +974,13 @@
       font-size: 1.4rem;
     }
     
+    /* Style for new image icons */
+    .accordion-img-icon {
+      width: 24px; /* Adjust size as needed */
+      height: 24px; /* Adjust size as needed */
+      object-fit: contain; /* Or cover, depending on image aspect ratio */
+    }
+    
     .accordion-arrow {
       font-size: 1rem;
       transition: transform 0.3s ease;
@@ -1110,7 +1117,7 @@
       <div class="accordion-item">
         <div class="accordion-header" data-target="eating">
           <div class="accordion-title">
-            <span class="accordion-icon">🍽️</span>
+            <img src="images/eats.png" alt="Eating icon" class="accordion-img-icon">
             Eating
           </div>
           <span class="accordion-arrow">▼</span>
@@ -1178,7 +1185,7 @@
       <div class="accordion-item">
         <div class="accordion-header" data-target="traveling">
           <div class="accordion-title">
-            <span class="accordion-icon">🌍</span>
+            <img src="images/travel.png" alt="Traveling icon" class="accordion-img-icon">
             Traveling
           </div>
           <span class="accordion-arrow">▼</span>
@@ -1200,7 +1207,7 @@
       <div class="accordion-item">
         <div class="accordion-header" data-target="film">
           <div class="accordion-title">
-            <span class="accordion-icon">🎬</span>
+            <img src="images/film.png" alt="Film icon" class="accordion-img-icon">
             Film
           </div>
           <span class="accordion-arrow">▼</span>
@@ -1220,7 +1227,7 @@
       <div class="accordion-item">
         <div class="accordion-header" data-target="active">
           <div class="accordion-title">
-            <span class="accordion-icon">⛷️</span>
+            <img src="images/active.png" alt="Being Active icon" class="accordion-img-icon">
             Being Active
           </div>
           <span class="accordion-arrow">▼</span>
