@@ -704,22 +704,26 @@
       background-color: #e0e0e0;
     }
     
+    /* Styles for reset button in web diagram, updated to match theme */
     .reset-button {
       display: inline-block;
       margin-top: 1rem;
-      padding: 8px 16px;
-      background-color: var(--light-gray);
+      padding: 8px 15px; /* Standardized padding */
+      background-color: var(--accent-color); /* Blue accent color */
+      color: white; /* White text */
       border: none;
-      border-radius: 20px;
-      color: var(--text-color);
+      border-radius: 20px; /* Consistent border-radius */
       font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight drop shadow */
+      transition: all 0.3s ease; /* Smooth transition */
     }
-    
-    .reset-button:hover {
-      background-color: rgba(115, 165, 255, 0.15);
+
+    .reset-button:hover, .reset-button:focus { /* Added :focus for accessibility */
       transform: translateY(-2px);
+      background-color: var(--primary-color); /* Consistent hover effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px var(--accent-color); /* Enhanced shadow and glow */
+      color: white; /* Ensure text remains white */
     }
     
     .detail-content-wrapper {
@@ -1022,22 +1026,50 @@
       line-height: 1.6;
     }
     
+    /* Updated styles for accordion links to look like buttons */
     .accordion-link {
       display: inline-block;
-      padding: 6px 12px;
+      padding: 8px 15px; /* Match padding */
       margin-top: 0.5rem;
-      background-color: var(--light-gray);
+      background-color: var(--accent-color); /* Blue accent color */
+      color: white; /* White text */
       border-radius: 20px;
       text-decoration: none;
-      color: var(--primary-color);
       font-weight: 500;
       font-size: 0.9rem;
-      transition: transform 0.2s, background-color 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight drop shadow */
+      transition: all 0.3s ease; /* Smooth transition */
     }
-    
-    .accordion-link:hover {
+
+    .accordion-link:hover, .accordion-link:focus {
       transform: translateY(-2px);
-      background-color: rgba(115, 165, 255, 0.15);
+      background-color: var(--primary-color); /* Consistent hover effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px var(--accent-color); /* Enhanced shadow and glow */
+      color: white; /* Ensure text remains white */
+    }
+
+    /* Styles for the accordion button (e.g., Beli button) */
+    .accordion-button {
+      display: inline-block;
+      padding: 8px 15px;
+      margin-top: 0.5rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .accordion-button:hover, .accordion-button:focus {
+      transform: translateY(-2px);
+      background-color: var(--primary-color);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px var(--accent-color);
+      color: white; /* Ensure text remains white */
     }
   </style>
 </head>
