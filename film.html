@@ -248,20 +248,28 @@
       color: #999;
     }
     
-    /* Back link */
+    /* Back link - styled as a button */
     .back-link {
-      display: block;
+      display: inline-block; /* Changed from block to allow sizing based on content + padding */
       text-align: center;
-      margin-top: 1rem;
-      color: var(--primary-color);
+      margin-top: 1rem; /* Keep margin-top */
+      padding: 8px 15px; /* Consistent padding with other buttons */
+      background-color: var(--accent-color); /* Accent color background */
+      color: white; /* White text */
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.2s;
+      font-size: 0.9rem; /* Consistent font size */
+      border-radius: 20px; /* Consistent border-radius */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight drop shadow */
+      transition: all 0.3s ease; /* Smooth transition */
     }
     
-    .back-link:hover {
-      color: var(--secondary-color);
-      text-decoration: underline;
+    .back-link:hover, .back-link:focus {
+      color: white; /* Ensure text remains white on hover/focus */
+      background-color: var(--primary-color); /* Darken on hover, consistent with other buttons */
+      text-decoration: none; /* Ensure no underline on hover */
+      transform: translateY(-2px); /* Lift effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px var(--accent-color); /* Enhanced shadow and glow */
     }
     
     /* Hamburger menu for mobile (copied from index.html) */
