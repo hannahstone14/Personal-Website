@@ -242,6 +242,10 @@ const BookshelfStats: React.FC<BookshelfStatsProps> = ({
           <div>
             <h1 className="text-3xl font-medium">Hannah's Library</h1>
             <p className="text-gray-500 text-sm">I do not endorse everything I read.</p>
+            <div className="flex items-center mt-1 text-gray-500 text-sm">
+              <span role="img" aria-label="pin">📍</span>
+              <span className="ml-1">New York</span>
+            </div>
           </div>
         </div>
         
